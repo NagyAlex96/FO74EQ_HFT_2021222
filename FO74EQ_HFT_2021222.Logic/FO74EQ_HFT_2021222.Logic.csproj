@@ -1,7 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FO74EQ_HFT_2021222.Models\FO74EQ_HFT_2021222.Models.csproj" />
+    <ProjectReference Include="..\FO74EQ_HFT_2021222.Repository\FO74EQ_HFT_2021222.Repository.csproj" />
+  </ItemGroup>
 
 </Project>
