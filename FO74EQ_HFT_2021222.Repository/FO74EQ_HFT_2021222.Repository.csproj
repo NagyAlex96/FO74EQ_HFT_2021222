@@ -5,6 +5,20 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Database\Neptun.mdf" />
+	  <None Remove="Database\Neptun_log.ldf" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Database\Neptun.mdf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Database\Neptun_log.ldf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\FO74EQ_HFT_2021222.Models\FO74EQ_HFT_2021222.Models.csproj" />
 	</ItemGroup>
 
