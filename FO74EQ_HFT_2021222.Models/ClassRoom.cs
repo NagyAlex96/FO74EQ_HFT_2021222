@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DbConcept.Models
+namespace FO74EQ_HFT_2021222.Models
 {
     public class ClassRoom
     {
