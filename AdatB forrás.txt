@@ -1,0 +1,625 @@
+IF OBJECT_ID('GradeBook', 'U') IS NOT NULL DROP TABLE GradeBook;
+IF OBJECT_ID('Students', 'U') IS NOT NULL DROP TABLE Students;
+IF OBJECT_ID('Courses', 'U') IS NOT NULL DROP TABLE Courses;
+IF OBJECT_ID('Teachers', 'U') IS NOT NULL DROP TABLE Teachers;
+IF OBJECT_ID('ClassRooms', 'U') IS NOT NULL DROP TABLE ClassRooms;
+
+-- Create tables
+CREATE TABLE Students
+(
+    neptunID CHAR(6) NOT NULL
+        CHECK (neptunID LIKE 'OE%'),
+    firstName VARCHAR(240) NOT NULL,
+    lastName VARCHAR(240) NOT NULL,
+    dateOfBirth DATE NOT NULL,
+    email VARCHAR(240),
+    CONSTRAINT students_pk PRIMARY KEY(neptunID)
+);
+
+CREATE TABLE Courses
+(
+    courseID NUMERIC(11) NOT NULL,
+    name VARCHAR(240) NOT NULL,
+    dateOfAnnounced DATE NOT NULL,
+    credit NUMERIC(2)
+        CHECK (credit > 0),
+    classRoomID NUMERIC(11),
+    requirementID NUMERIC(11),
+    CONSTRAINT courses_pk PRIMARY KEY(courseID)
+);
+
+CREATE TABLE Teachers
+(
+    teacherID NUMERIC(11) NOT NULL,
+    lastName VARCHAR(240) NOT NULL,
+    firstName VARCHAR(240) NOT NULL,
+    salary NUMERIC(6)
+        CHECK (salary > 0),
+    CONSTRAINT teacher_pk PRIMARY KEY(teacherID)
+);
+
+CREATE TABLE ClassRooms
+(
+    classRoomID NUMERIC(11) NOT NULL,
+    capacity NUMERIC(11)
+        CHECK (capacity > 0),
+    CONSTRAINT classRooms_pk PRIMARY KEY(classRoomID)
+);
+
+CREATE TABLE GradeBook
+(
+    gradeBookID NUMERIC(11) NOT NULL,
+    neptunID CHAR(6) NOT NULL,
+    teacherID NUMERIC(11) NOT NULL,
+    courseID NUMERIC(11) NOT NULL,
+    grade NUMERIC(1)
+        CHECK (grade BETWEEN 1 AND 5),
+    rating NUMERIC(1)
+        CHECK (rating BETWEEN 1 AND 5),
+    CONSTRAINT leckekonyv_pk PRIMARY KEY(gradeBookID)
+);
+
+
+-- Create FKs
+ALTER TABLE Courses
+    ADD    FOREIGN KEY (requirementID)
+    REFERENCES Courses(courseID)
+;
+    
+ALTER TABLE Courses
+    ADD    FOREIGN KEY (classRoomID)
+    REFERENCES ClassRooms(classRoomID)
+;
+    
+ALTER TABLE GradeBook
+    ADD    FOREIGN KEY (neptunID)
+    REFERENCES Students(neptunID)
+;
+    
+ALTER TABLE GradeBook
+    ADD    FOREIGN KEY (teacherID)
+    REFERENCES Teachers(teacherID)
+;
+    
+ALTER TABLE GradeBook
+    ADD    FOREIGN KEY (courseID)
+    REFERENCES Courses(courseID)
+;
+
+-- ClassRooms
+
+INSERT INTO ClassRooms VALUES (1,22);
+INSERT INTO ClassRooms VALUES (2,22);
+INSERT INTO ClassRooms VALUES (3,22);
+INSERT INTO ClassRooms VALUES (4,25);
+INSERT INTO ClassRooms VALUES (5,25);
+INSERT INTO ClassRooms VALUES (6,25);
+INSERT INTO ClassRooms VALUES (7,25);
+INSERT INTO ClassRooms VALUES (8,25);
+INSERT INTO ClassRooms VALUES (9,25);
+INSERT INTO ClassRooms VALUES (10,25);
+INSERT INTO ClassRooms VALUES (11,25);
+INSERT INTO ClassRooms VALUES (12,30);
+INSERT INTO ClassRooms VALUES (13,30);
+INSERT INTO ClassRooms VALUES (14,30);
+INSERT INTO ClassRooms VALUES (15,30);
+INSERT INTO ClassRooms VALUES (16,30);
+INSERT INTO ClassRooms VALUES (17,35);
+INSERT INTO ClassRooms VALUES (18,35);
+INSERT INTO ClassRooms VALUES (19,40);
+INSERT INTO ClassRooms VALUES (20,15);
+INSERT INTO ClassRooms VALUES (21,20);
+INSERT INTO ClassRooms VALUES (22,15);
+INSERT INTO ClassRooms VALUES (23,20);
+
+-- Teachers
+
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (373,'John','Bass',212651);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (374,'Armando','Slater',162134);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (375,'Rhiannon','Pennington',265365);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (376,'Abigail','Thomas',392938);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (377,'Nora','Pennington',151121);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (378,'John','Vang',364022);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (379,'Porter','Hooper',232403);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (380,'Ocean','Leonard',NULL);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (381,'Iliana','Mathews',308665);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (382,'Natalie','Mccarty',312991);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (383,'Kelly','Bentley',366342);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (384,'Eliana','Thompson',355073);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (385,'John','Mitchell',311003);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (386,'Kai','Riley',355682);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (387,'Noelani','Cochran',235839);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (388,'Emma','Bowers',290193);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (389,'Allistair','Randolph',353792);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (390,'John','Gibbs',203080);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (391,'Blythe','Black',219409);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (392,'Leonard','Griffin',362017);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (393,'Trevor','Hooper',333835);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (394,'Alan','Fuentes',353610);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (395,'Margaret','Mueller',206558);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (396,'Jelani','Petersen',346723);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (397,'Selma','Neal',349540);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (398,'Jenette','Jackson',351939);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (399,'Keefe','Bauer',354312);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (400,'Erica','Long',170731);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (401,'Uma','Alexander',168082);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (402,'James','York',291997);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (403,'Jordan','Harmon',295823);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (404,'Ocean','Potts',265343);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (405,'Jackson','Vega',317577);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (406,'Calvin','Patrick',321064);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (407,'Kelly','Kerr',267875);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (408,'Megan','Nieves',242917);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (409,'Maggie','Vaughan',NULL);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (410,'Chancellor','Riley',178904);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (411,'Ian','Booker',345914);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (412,'Tallulah','Ayala',362935);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (413,'Hilda','Rosario',310155);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (414,'Lynn','Mullen',274189);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (415,'Steven','Lawson',196795);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (416,'Akeem','Rowland',177451);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (417,'Bethany','Hooper',392432);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (418,'Quin','Black',362587);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (419,'Cassidy','Rose',268472);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (420,'Kimberley','Charles',208740);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (421,'Forrest','Anderson',298583);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (422,'Oliver','Harrison',166887);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (423,'Karyn','Silva',375179);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (424,'Jordan','Hale',160871);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (425,'John','Ware',244652);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (426,'Lacota','Barker',256375);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (427,'Oliver','Hicks',NULL);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (428,'Raymond','Mullen',196586);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (429,'Odette','Hardy',366010);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (430,'Dacey','Ball',204700);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (431,'Jesse','Holloway',195303);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (432,'Owen','Barrett',376543);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (433,'Vielka','Levine',168588);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (434,'Dylan','Miles',312074);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (435,'Magee','Weiss',358962);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (436,'Steven','Huffman',200575);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (437,'Rooney','Black',195788);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (438,'Forrest','Heath',157722);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (439,'Jordan','Hubbard',153159);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (440,'Barbara','Walton',307135);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (441,'Bruce','Porter',380992);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (442,'Barbara','Dickerson',296150);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (443,'Lacy','Lynn',299455);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (444,'Logan','Faulkner',154499);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (445,'Barbara','Black',398153);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (446,'Holmes','Jefferson',230346);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (447,'Calista','Ball',399245);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (448,'Rashad','Greer',229492);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (449,'Alvin','Porter',331340);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (450,'Oliver','Hopper',171172);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (451,'Jonas','Mckee',339392);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (452,'Jerry','Goff',271729);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (453,'Barbara','Johnston',200922);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (454,'Mannix','Thomas',373923);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (455,'Brent','Collins',158024);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (456,'Tanner','Jarvis',263481);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (457,'Stacy','Terrell',NULL);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (458,'Carson','Puckett',179473);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (459,'Ashton','Summers',295549);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (460,'Hasad','Dodson',158555);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (461,'Clarke','Gilbert',376511);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (462,'Leonard','Schmidt',241381);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (463,'Fritz','Mills',224798);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (464,'Aspen','Ramos',305729);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (465,'Mariko','Bradford',164821);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (466,'Maxwell','Morin',240500);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (467,'Kessie','Shaw',142513);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (468,'Myra','Warner',NULL);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (469,'Owen','Poole',381119);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (470,'Herman','Ballard',196759);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (471,'Priscilla','Sanford',326383);
+INSERT INTO Teachers (teacherID,firstName,lastName,salary) VALUES (472,'Malcolm','Vasquez',318605);
+
+-- Students
+
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OES3J4','Ayala','Burton',('06/15/2000'),'dui.lectus@ipsumac.ca');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEM4F8','Merritt','Jelani',('01/09/2000'),'Praesent.eu.nulla@sedconsequat.com');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEB9R3','Delaney','Basil',('03/28/1999'),'accumsan.interdum@seddui.edu');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OER0M6','Glover','Emery',('11/30/1998'),'diam.Pellentesque@molestie.ca');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEG3Z3','Hyde','Mona',('12/25/1999'),'tellus.justo@Utnecurna.co.uk');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OET9M4','Levine','Deacon',('01/03/1999'),'luctus@Integer.co.uk');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEB1X1','Hunt','Wynter',('02/07/2000'),'rutrum.lorem@ametultricies.com');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OER1K2','Velasquez','Theodore',('08/04/1999'),'ipsum.dolor.sit@estNunclaoreet.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OER8E1','Suarez','Brenna',('04/02/1998'),'mauris.rhoncus@Sedcongue.edu');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEV3L6','Murray','Adara',('09/20/1998'),'dolor.Fusce@risusIn.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEP6H4','Gaines','Finn',('02/24/1999'),'Nam.consequat@idmagnaet.ca');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEP0U6','Mason','Colt',('12/06/1999'),'varius.Nam.porttitor@interdum.edu');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEL5Z9','Cardenas','Kadeem',('09/17/1999'),'magna@tellusAeneanegestas.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEI7J0','Rhodes','Sharon',('05/02/2000'),'sem@ac.net');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEE3R5','Adams','Cathleen',('04/13/1999'),'ipsum.nunc@Nulla.co.uk');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEQ2Q7','Zamora','Rebecca',('07/14/2000'),'nec@consectetuermauris.edu');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEB4M0','Garcia','Aretha',('11/20/1999'),'a.facilisis.non@malesuadafamesac.co.uk');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEO2Q8','Hancock','Baxter',('05/22/1998'),'enim.nisl@ullamcorper.net');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEZ4W0','Rivers','Ashton',('05/01/1999'),'mollis@congueturpis.ca');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEG9D8','Bryan','Rachel',('08/28/2000'),'orci.lacus.vestibulum@blanditenim.edu');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEH6D3','Foreman','Zeph',('03/15/2000'),'venenatis.lacus.Etiam@ante.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEU8I5','Watts','Vanna',('12/25/1999'),'mi@utquamvel.com');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEQ4P0','Dean','Noah',('02/08/1999'),'auctor.nunc.nulla@etpedeNunc.edu');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEH3E5','Norman','Cedric',('12/21/1999'),'imperdiet.ornare.In@tellus.edu');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEU3F3','Richardson','Kameko',('08/20/2000'),'Fusce@gravida.net');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEV4U9','Deleon','Stephen',('02/12/1999'),'Integer.sem@sit.com');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEQ5N9','Crane','Timothy',('05/27/1998'),'vulputate@interdum.co.uk');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEO9J8','Ayers','Peter',('05/26/2000'),'velit@orci.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEV5D1','Sears','Claudia',('03/30/1999'),'Morbi@mifelis.edu');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEX2K1','Melendez','Wing',('05/17/1999'),'Suspendisse@risus.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OER5L7','Albert','Ralph',('10/17/1999'),'nulla@quis.com');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEG4V0','Welch','Hashim',('01/13/2000'),'tincidunt.dui.augue@nec.ca');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEY4L2','Morgan','Vielka',('05/21/1998'),'non.ante@sodalespurusin.co.uk');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEX8M0','Larson','Dolan',('05/10/1998'),'erat@necurna.edu');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OES1G7','Wade','Adele',('07/21/1999'),'ipsum.dolor@imperdiet.edu');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEN9S1','Mccray','Suki',('07/27/1999'),'dolor@diam.net');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEQ9G0','Gardner','David',('04/14/1998'),'montes@pedesagittisaugue.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEQ2L8','Mcintosh','Jameson',('04/09/1998'),'sagittis@eleifend.ca');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEL9F7','Payne','Connor',('08/01/1998'),'consectetuer.adipiscing.elit@egestasa.co.uk');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEP4V5','Watts','Gabriel',('06/29/1998'),'taciti.sociosqu.ad@malesuadaiderat.co.uk');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEH7N1','Hale','Dean',('04/29/1998'),'eros.Proin.ultrices@ametmassa.co.uk');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEF5J5','Schneider','Quon',('08/25/1999'),'aliquet@montes.ca');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEN5D6','Kline','Jonah',('01/12/1998'),'Integer.aliquam.adipiscing@sitametconsectetuer.ca');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEL0V6','Haney','Macy',('06/26/1999'),'non.nisi.Aenean@Nuncuterat.ca');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEH6P7','Mosley','Willow',('04/07/2000'),'Ut@elementumategestas.ca');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEA2M9','Chambers','Ira',('07/16/1999'),'dui.semper@Namacnulla.edu');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEB0T2','Parsons','Hayley',('08/14/2000'),'egestas.a@et.co.uk');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OER3U1','Tanner','Jeanette',('01/21/1998'),'blandit@egetmollis.net');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEB2E0','Smith','Evangeline',('07/17/1999'),'lacus@velnisl.edu');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEG4Y3','Wade','Geoffrey',('01/20/1999'),'arcu.Nunc.mauris@PhasellusornareFusce.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OER3Y3','Albert','Adrian',('05/02/2000'),'odio.auctor@tristiquenequevenenatis.com');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEU6X0','Tyson','Uriah',('10/17/1999'),'In@diam.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEY6V9','Suarez','Liberty',('10/26/1998'),'sem@arcuetpede.com');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEK8G8','Vaughn','Dexter',('02/29/2000'),'at.auctor.ullamcorper@euismodacfermentum.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEG0O1','Larsen','Baker',('12/31/1999'),'sed.orci@mi.co.uk');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEM2O7','Henry','Nigel',('07/05/1998'),'dui@elementumsemvitae.edu');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEK9X4','Bradley','Marah',('10/11/1999'),'non.enim.commodo@erat.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEG4P0','Phillips','Kaseem',('09/09/2000'),'luctus.sit.amet@Quisque.ca');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEZ6E8','Mullen','Reagan',('07/26/1998'),'Nulla.facilisis@Donec.net');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEV9O6','Wise','Davis',('12/10/1998'),'pede.malesuada.vel@mattissemperdui.edu');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OES8J3','Baker','Aladdin',('11/22/1998'),'In.at@mauris.ca');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEM1M2','Conrad','Ross',('02/16/1998'),'Vivamus.sit.amet@eleifendnon.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEQ9U1','Case','Zorita',('06/29/1999'),'neque@ametornare.com');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEO2I1','Snider','Isaac',('03/10/1999'),'tellus.Nunc.lectus@sed.net');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEN2D5','Hinton','Miriam',('12/06/1999'),'Fusce.dolor@Cumsociisnatoque.co.uk');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEF3J0','Barry','Jason',('06/17/1998'),'amet.ante.Vivamus@lectusNullamsuscipit.edu');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEH3E3','Davis','Amethyst',('03/27/2000'),'tellus.Phasellus@Nuncmauris.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEN3O8','Marks','Russell',('09/04/1998'),'erat@semvitae.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEB6B4','Mcintosh','Debra',('11/20/1999'),'gravida.molestie@egestasurna.co.uk');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OET1S5','Vazquez','Xerxes',('05/31/2000'),'at.fringilla@tortorat.co.uk');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEG8M7','Barnes','Patricia',('12/25/1999'),'Proin.mi@liberoProin.com');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEP0H6','Levy','Ulla',('08/26/1999'),'ante@diamPellentesque.edu');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEM5G1','Roy','Dustin',('02/05/2000'),'urna.Nunc@eget.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEK4M6','Crosby','Reuben',('12/17/1999'),'velit@ridiculus.com');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEF4Z6','Rivers','Lee',('09/04/1999'),'nunc@porttitor.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEX0O6','Beasley','Cadman',('10/03/1999'),'aliquet@auctornon.ca');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OET5O1','Buckley','Stone',('02/05/1998'),'vulputate.lacus@utnisia.com');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OES0T9','Vinson','Dante',('06/22/2000'),'adipiscing.non@lorem.co.uk');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEE4S9','Hodges','Sydnee',('02/09/1999'),'Phasellus.dolor.elit@eratnonummyultricies.com');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEX9B3','Mcpherson','Quentin',('03/17/2000'),'Sed.eget@Etiamvestibulum.ca');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEN1E2','Martinez','Ila',('07/18/2000'),'pede.Nunc.sed@faucibus.co.uk');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEI9H9','Fowler','Judith',('06/17/1998'),'tincidunt.congue@ut.net');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEI1G9','Fitzpatrick','Prescott',('06/24/1999'),'eget@tincidunttempus.net');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEX0N2','Hicks','Adam',('05/11/1999'),'auctor@arcuvel.com');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEK6N6','Dixon','Marsden',('02/18/1998'),'tincidunt.nunc.ac@hendrerit.ca');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEP5K0','Le','Abbot',('04/25/1998'),'non@dapibus.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEQ5F7','Duncan','Candace',('01/10/1998'),'pede.Nunc@interdumNuncsollicitudin.co.uk');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEK7E3','Floyd','Rylee',('03/11/2000'),'ac.fermentum.vel@quis.net');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEQ8A2','Avila','Grady',('02/03/1998'),'Donec@ametrisus.edu');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEA0P7','Bolton','Fletcher',('10/01/1998'),'inceptos.hymenaeos@necenimNunc.edu');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEO0A5','Roach','Lara',('04/30/1998'),'urna.justo@metus.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEE8H9','Watts','Roary',('02/22/2000'),'tempor.erat.neque@lorem.org');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEI0I7','Aguirre','Wynne',('07/07/1999'),'porttitor.interdum.Sed@parturientmontes.co.uk');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEY5Z8','Graham','Stewart',('02/17/1999'),'Quisque@Nuncpulvinararcu.com');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEI5Y7','Dennis','Eden',('05/11/2000'),'faucibus@sapien.net');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OET2E8','Mccall','Moses',('08/19/2000'),'Donec@elitEtiamlaoreet.ca');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEK2I3','Stokes','Colin',('05/26/1999'),'justo.nec@Morbiaccumsan.com');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEE0J0','Jenkins','Paula',('09/01/1998'),'arcu.Curabitur.ut@ascelerisque.ca');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEU5O4','Fowler','Giselle',('02/06/1998'),'metus@enimmitempor.com');
+INSERT INTO Students (neptunID,lastName,firstName,dateOfBirth,email) VALUES ('OEB2V1','Melton','Marah',('05/16/1999'),'sit@semperduilectus.edu');
+
+-- Courses
+
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (1,'Animal Science',('07/30/2019'),11,16,NULL);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (2,'Pottery',('08/02/2018'),5,6,1);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (3,'Choir',('04/10/2019'),8,9,2);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (4,'Rock Climbing',('02/10/2018'),1,14,3);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (5,'Meteorology',('07/05/2019'),6,4,2);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (6,'Digital Arts',('02/14/2018'),11,1,1);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (7,'Team Sports',('05/30/2018'),10,11,3);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (8,'Grammar',('11/01/2018'),12,17,3);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (9,'Organic Chemistry',('08/31/2018'),1,11,4);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (10,'Study',('03/02/2019'),11,5,1);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (11,'Consumer Math',('12/29/2018'),11,20,1);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (12,'Fundamental Math or Basic Math',('01/29/2018'),10,4,4);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (13,'Algebra',('09/01/2019'),11,10,5);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (14,'Music History',('05/20/2018'),8,7,1);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (15,'Skills',('07/14/2018'),2,23,1);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (16,'Civics',('09/21/2018'),12,16,4);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (17,'Ecology',('05/15/2018'),3,16,5);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (18,'Earth Science',('09/24/2018'),8,20,12);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (19,'Honors Courses in any core subject',('03/30/2018'),13,18,18);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (20,'Physical Science',('12/09/2017'),13,15,19);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (21,'Weightlifting',('06/27/2019'),5,1,9);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (22,'Physical Fitness',('10/17/2017'),8,2,7);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (23,'Gardening',('02/17/2018'),8,7,10);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (24,'Child Development',('04/06/2019'),3,16,23);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (25,'Political Science',('05/06/2018'),3,7,17);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (26,'Oceanography',('07/02/2018'),7,20,18);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (27,'Personal Organization',('04/22/2019'),1,6,17);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (28,'Outdoor Survival Skills',('11/21/2018'),6,17,7);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (29,'Oceanography',('06/01/2019'),8,15,23);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (30,'Gardening',('06/23/2019'),9,23,3);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (31,'World Religions',('07/06/2019'),10,1,27);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (32,'Geometry',('01/08/2018'),8,6,21);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (33,'Driver’s Education',('08/11/2019'),9,8,17);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (34,'Team Sports',('06/24/2018'),14,7,11);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (35,'Social Skills',('09/30/2018'),6,8,20);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (36,'Ancient History',('07/17/2019'),9,13,28);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (37,'Heroes, Myth and Legend',('01/04/2018'),13,12,22);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (38,'Film as Literature',('09/19/2018'),8,21,21);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (39,'Genealogy',('05/31/2018'),14,19,6);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (40,'Ecology',('10/20/2018'),8,19,27);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (41,'Consumer Math',('06/19/2018'),15,14,11);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (42,'Personal Finance and Investing',('05/20/2019'),9,12,16);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (43,'Philosophy',('02/01/2019'),9,11,25);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (44,'Classical Music Studies',('05/25/2018'),14,9,41);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (45,'Computer Repair',('10/09/2018'),3,12,13);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (46,'Art I',('11/05/2018'),13,9,22);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (47,'Art II',('03/14/2019'),12,8,38);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (48,'Consumer Math',('12/08/2018'),6,12,20);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (49,'Choir',('08/18/2018'),3,9,25);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (50,'Yearbook',('08/30/2019'),6,22,25);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (51,'Social Skills',('07/23/2019'),3,23,42);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (52,'Art III',('12/28/2018'),10,12,47);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (53,'Grammar',('11/23/2018'),4,8,52);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (54,'Gymnastics',('02/15/2018'),4,12,22);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (55,'Archery',('10/27/2017'),10,6,32);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (56,'Meteorology',('05/20/2018'),14,15,17);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (57,'LOGIC',('01/19/2018'),8,1,52);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (58,'Drafting',('03/07/2019'),6,3,41);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (59,'Introduction to Algebra',('03/26/2018'),1,11,56);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (60,'Small Engine Mechanics',('12/23/2017'),2,16,56);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (61,'World Religions',('01/15/2019'),9,9,53);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (62,'Sociology',('08/01/2019'),5,13,39);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (63,'Adapted P.E',('10/18/2018'),10,21,28);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (64,'Meteorology',('02/01/2018'),8,17,33);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (65,'Creative Writing',('10/11/2017'),11,9,17);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (66,'US History',('06/25/2018'),8,17,25);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (67,'Lifeskills',('11/29/2017'),4,13,26);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (68,'Oceanography',('01/27/2018'),11,17,13);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (69,'Desktop Publishing',('01/19/2018'),7,23,43);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (70,'Track and Field',('05/21/2019'),1,20,26);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (71,'Ancient Literature',('01/15/2018'),14,14,57);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (72,'Journalism',('07/28/2019'),5,20,4);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (73,'Classical literature',('06/18/2019'),4,23,57);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (74,'Driver’s Education',('03/22/2018'),12,2,49);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (75,'Sociology',('02/23/2018'),14,17,74);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (76,'Bowling',('10/18/2017'),1,21,57);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (77,'Web Design',('01/24/2018'),13,22,6);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (78,'Personal Organization',('04/22/2019'),9,3,73);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (79,'Vocabulary',('03/24/2019'),13,5,65);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (80,'English III',('03/30/2019'),4,21,37);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (81,'Film as Literature',('05/04/2018'),8,13,8);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (82,'World Literature',('04/06/2019'),14,12,57);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (83,'Yearbook',('06/11/2018'),2,22,58);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (84,'Lifeskills',('02/05/2018'),10,16,35);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (85,'Drill Team, Honor',('02/02/2019'),11,15,27);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (86,'Health',('08/09/2018'),12,20,31);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (87,'Archery',('10/14/2018'),9,20,15);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (88,'Pre-Algebra',('09/11/2017'),2,3,76);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (89,'Rock Climbing',('12/25/2017'),5,3,56);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (90,'Personal Finance and Investing',('04/04/2018'),14,23,28);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (91,'Dance',('06/21/2019'),13,21,85);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (92,'Art IV',('10/26/2018'),9,1,42);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (93,'Logic II',('05/10/2018'),8,19,24);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (94,'Physical Fitness',('02/07/2018'),11,13,86);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (95,'Hiking',('02/24/2019'),3,17,18);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (96,'Gardening',('05/13/2019'),14,18,28);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (97,'Remedial Math',('09/03/2018'),2,18,78);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (98,'Fencing',('01/14/2019'),15,3,58);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (99,'Film Production',('11/17/2017'),3,18,18);
+INSERT INTO Courses (courseID,name,dateOfAnnounced,credit,classRoomID,requirementID) VALUES (100,'Photography',('01/07/2019'),6,9,51);
+
+-- GradeBook
+
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (1,'OEB1X1',395,69,4,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (2,'OEZ4W0',388,86,4,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (3,'OEN9S1',396,90,1,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (4,'OEU6X0',436,72,4,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (5,'OEO9J8',409,92,5,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (6,'OEE3R5',415,9,3,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (7,'OEQ5F7',414,11,2,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (8,'OEM2O7',399,40,1,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (9,'OEU6X0',397,65,5,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (10,'OEV5D1',407,10,2,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (11,'OER3Y3',402,87,3,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (12,'OEG9D8',404,66,4,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (13,'OEV9O6',416,52,5,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (14,'OEG4Y3',401,43,3,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (15,'OEB2V1',469,100,3,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (16,'OEE8H9',389,91,1,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (17,'OEV9O6',437,55,3,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (18,'OET2E8',462,95,3,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (19,'OEA0P7',464,96,4,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (20,'OEU5O4',404,79,2,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (21,'OEH6P7',444,54,4,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (22,'OEU8I5',437,37,4,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (23,'OEM5G1',381,96,1,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (24,'OEV4U9',434,75,2,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (25,'OEK4M6',424,34,4,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (26,'OEN9S1',425,48,5,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (27,'OEU3F3',451,49,4,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (28,'OEV3L6',398,35,5,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (29,'OEN2D5',404,32,1,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (30,'OEU5O4',430,46,4,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (31,'OEU5O4',418,18,3,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (32,'OEI1G9',418,80,5,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (33,'OEU5O4',431,18,5,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (34,'OER3U1',416,4,2,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (35,'OEG4V0',421,92,2,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (36,'OEX2K1',394,24,1,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (37,'OEX0O6',432,24,2,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (38,'OEO2Q8',447,89,1,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (39,'OEI7J0',387,71,1,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (40,'OEP4V5',454,78,1,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (41,'OEV5D1',456,57,5,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (42,'OER0M6',454,4,5,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (43,'OEI0I7',400,75,2,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (44,'OEM5G1',401,29,1,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (45,'OEQ2Q7',455,27,3,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (46,'OEM5G1',407,37,3,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (47,'OEF4Z6',447,83,3,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (48,'OEM4F8',427,20,4,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (49,'OEY5Z8',464,55,1,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (50,'OEY4L2',426,64,5,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (51,'OEB2E0',430,95,4,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (52,'OET2E8',455,80,2,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (53,'OEU8I5',439,28,4,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (54,'OER3Y3',377,14,5,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (55,'OEQ2Q7',452,15,2,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (56,'OEE3R5',387,11,2,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (57,'OEK8G8',432,40,2,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (58,'OEN9S1',441,5,2,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (59,'OEI1G9',455,69,4,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (60,'OEX0O6',429,76,1,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (61,'OES0T9',432,83,5,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (62,'OEN2D5',426,36,4,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (63,'OEG9D8',422,78,1,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (64,'OEE4S9',462,45,2,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (65,'OEM2O7',437,69,5,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (66,'OEE4S9',434,44,1,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (67,'OET9M4',462,17,2,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (68,'OEF4Z6',400,90,1,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (69,'OES8J3',399,28,2,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (70,'OEK8G8',470,43,2,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (71,'OEP5K0',385,48,1,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (72,'OET2E8',446,78,1,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (73,'OEI0I7',374,70,1,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (74,'OEU5O4',414,32,5,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (75,'OEQ2Q7',464,34,2,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (76,'OEP5K0',382,70,2,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (77,'OEI7J0',446,4,2,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (78,'OEU6X0',394,38,1,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (79,'OEP4V5',410,30,3,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (80,'OEV3L6',401,69,5,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (81,'OEI1G9',467,23,3,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (82,'OEH6P7',401,53,1,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (83,'OET5O1',421,81,5,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (84,'OEX2K1',383,69,5,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (85,'OEM2O7',381,26,4,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (86,'OEH6D3',401,97,5,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (87,'OEQ5N9',469,17,2,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (88,'OEB6B4',393,49,1,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (89,'OEQ9U1',464,5,1,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (90,'OEU8I5',439,35,3,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (91,'OEO2I1',465,62,3,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (92,'OEX8M0',458,85,1,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (93,'OEE8H9',389,89,5,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (94,'OEN1E2',457,16,2,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (95,'OEX2K1',411,72,1,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (96,'OEX9B3',458,43,4,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (97,'OEV9O6',429,36,5,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (98,'OEF4Z6',393,63,3,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (99,'OEH6D3',426,53,4,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (100,'OEY5Z8',451,10,3,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (101,'OEP0H6',390,11,1,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (102,'OEE8H9',447,1,5,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (103,'OEX0N2',396,77,5,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (104,'OEL5Z9',420,20,5,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (105,'OEP0H6',426,89,4,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (106,'OEQ9U1',428,48,5,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (107,'OEY4L2',442,36,4,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (108,'OEG4V0',416,93,4,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (109,'OEV5D1',386,79,5,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (110,'OEY4L2',450,20,1,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (111,'OEN1E2',429,62,2,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (112,'OEA0P7',389,31,1,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (113,'OEE3R5',406,26,2,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (114,'OEG4Y3',424,8,5,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (115,'OEK8G8',426,31,3,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (116,'OES0T9',418,66,4,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (117,'OEI1G9',445,71,4,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (118,'OER3U1',460,45,5,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (119,'OEU5O4',469,4,2,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (120,'OEV4U9',457,51,1,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (121,'OEX0N2',414,9,3,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (122,'OEN3O8',376,19,1,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (123,'OEI0I7',441,54,2,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (124,'OER0M6',472,44,4,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (125,'OEM1M2',377,63,1,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (126,'OEH6P7',417,82,3,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (127,'OEU6X0',440,31,1,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (128,'OEZ4W0',438,42,3,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (129,'OEM5G1',393,28,3,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (130,'OEN3O8',449,94,3,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (131,'OEG9D8',425,80,3,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (132,'OEM5G1',457,48,5,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (133,'OEG9D8',375,12,2,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (134,'OEK4M6',431,75,4,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (135,'OEO9J8',445,99,1,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (136,'OER5L7',385,83,1,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (137,'OET5O1',435,25,2,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (138,'OEO0A5',441,40,5,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (139,'OET9M4',414,42,2,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (140,'OEH3E3',438,55,2,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (141,'OEF3J0',375,23,2,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (142,'OET5O1',453,35,2,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (143,'OEH6D3',379,74,1,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (144,'OEV4U9',467,50,4,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (145,'OEL5Z9',461,44,2,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (146,'OET5O1',414,58,2,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (147,'OEY6V9',406,67,3,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (148,'OEI7J0',423,15,4,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (149,'OEI9H9',441,93,5,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (150,'OEY5Z8',445,91,2,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (151,'OEV9O6',423,81,2,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (152,'OEH6P7',454,58,1,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (153,'OEF4Z6',446,7,1,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (154,'OEE3R5',455,7,4,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (155,'OEF4Z6',416,97,3,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (156,'OEZ4W0',397,67,4,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (157,'OER3U1',386,96,4,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (158,'OEE4S9',447,73,3,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (159,'OEQ9U1',436,94,3,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (160,'OEH3E3',434,87,4,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (161,'OER8E1',384,21,4,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (162,'OEQ9U1',406,15,4,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (163,'OEQ5F7',407,80,5,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (164,'OEM5G1',466,97,2,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (165,'OEG0O1',376,42,3,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (166,'OEB9R3',430,12,2,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (167,'OER3Y3',373,32,2,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (168,'OEI9H9',401,20,5,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (169,'OER3Y3',426,14,4,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (170,'OEB2E0',450,71,1,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (171,'OEG9D8',422,39,2,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (172,'OEM4F8',436,73,2,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (173,'OEL0V6',446,68,5,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (174,'OEG4Y3',410,32,5,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (175,'OEB4M0',402,53,5,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (176,'OEL0V6',464,20,5,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (177,'OEK4M6',392,84,1,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (178,'OEL5Z9',409,77,1,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (179,'OEB9R3',418,65,2,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (180,'OEM5G1',430,76,1,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (181,'OEQ4P0',445,99,2,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (182,'OEI1G9',415,24,4,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (183,'OEP0H6',437,28,5,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (184,'OEQ2Q7',460,34,2,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (185,'OEE8H9',419,66,2,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (186,'OEX0O6',439,65,5,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (187,'OEB1X1',468,95,1,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (188,'OEU8I5',412,36,5,5);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (189,'OEU8I5',444,85,4,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (190,'OEQ9U1',414,75,5,4);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (191,'OEH7N1',438,98,3,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (192,'OET9M4',395,18,3,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (193,'OEN1E2',435,65,3,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (194,'OES0T9',434,35,5,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (195,'OEE4S9',469,33,4,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (196,'OEE4S9',386,61,2,2);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (197,'OEN1E2',463,27,4,1);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (198,'OEA2M9',464,87,4,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (199,'OEU6X0',408,32,1,3);
+INSERT INTO GradeBook (gradeBookID,neptunID,teacherID,courseID,grade,rating) VALUES (200,'OEP4V5',455,12,2,2);
