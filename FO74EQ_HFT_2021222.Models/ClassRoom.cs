@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FO74EQ_HFT_2021222.Models
+namespace DbConcept.Models
 {
     public class ClassRoom
     {
@@ -27,7 +27,7 @@ namespace FO74EQ_HFT_2021222.Models
         [Required]
         public int ClassRoomId { get; set; }
 
-        [Range(1,int.MaxValue)]
+        [Range(1,500)]
         public int Capacity { get; set; }
 
         public virtual ICollection<Course> Courses { get; set; }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FO74EQ_HFT_2021222.Models
+namespace DbConcept.Models
 {
     public class Teacher
     {
@@ -37,7 +37,7 @@ namespace FO74EQ_HFT_2021222.Models
         [StringLength(240)]
         public string FirstName { get; set; }
 
-        [Range(0,int.MaxValue)]
+        [Range(0,1000000)]
         public int Salary { get; set; }
 
         public virtual ICollection<GradeBook> GradeBooks { get; set; }
