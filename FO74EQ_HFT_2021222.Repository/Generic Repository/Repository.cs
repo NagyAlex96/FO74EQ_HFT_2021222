@@ -1,4 +1,5 @@
-﻿using FO74EQ_HFT_2021222.Repository.Interfaces;
+﻿using FO74EQ_HFT_2021222.Repository.Database;
+using FO74EQ_HFT_2021222.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,29 +10,31 @@ namespace FO74EQ_HFT_2021222.Repository.Generic_Repository
 {
     public abstract class Repository<T> : IRepository<T> where T : class
     {
+        protected NeptunDbContext ctx;
+        public Repository(NeptunDbContext ctx)
+        {
+            this.ctx = ctx;
+        }
         public void Create(T item)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public T Read(int id)
-        {
-            throw new NotImplementedException();
+            ctx.Set<T>().Add(item);
+            ctx.SaveChanges();
         }
 
         public IQueryable<T> ReadAll()
         {
-            throw new NotImplementedException();
+            return ctx.Set<T>();
         }
 
-        public void Update(T item)
+        public void Delete(int id)
         {
-            throw new NotImplementedException();
+            ctx.Set<T>().Remove(Read(id));
+            ctx.SaveChanges();
         }
+
+        public abstract T Read(int id);
+        public abstract void Update(T item);
+
+
     }
 }
