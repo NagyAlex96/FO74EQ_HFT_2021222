@@ -28,14 +28,14 @@ namespace FO74EQ_HFT_2021222.Repository.Model_Repository
             ctx.SaveChanges();
         }
 
-        public override Student Read(int id)
+        public override Student Read(int id) //TODO
         {
             throw new NotImplementedException();
             //return ctx.Student.FirstOrDefault(t => t.NeptunId == id); //TODO
             //return null;
         }
 
-        private Student Read(string id)
+        public Student Read(string id)
         {
             return ctx.Student.FirstOrDefault(t => t.NeptunId == id);
         }
