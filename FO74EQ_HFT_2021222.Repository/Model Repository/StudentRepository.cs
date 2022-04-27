@@ -14,23 +14,30 @@ namespace FO74EQ_HFT_2021222.Repository.Model_Repository
     {
         public StudentRepository(NeptunDbContext ctx) : base(ctx)
         {
-        }
 
-        public override Student Read(int id)
-        {
-            //return ctx.Student.FirstOrDefault(t => t.NeptunId == id); //TODO
-            return null;
         }
 
         public override void Update(Student item)
         {
-            var old = 1; //TODO
-            //var old = Read(item.NeptunId);
+            //var old = 1; //TODO
+            var old = Read(item.NeptunId);
             foreach (var prop in old.GetType().GetProperties())
             {
                 prop.SetValue(old, prop.GetValue(item));
             }
             ctx.SaveChanges();
+        }
+
+        public override Student Read(int id)
+        {
+            throw new NotImplementedException();
+            //return ctx.Student.FirstOrDefault(t => t.NeptunId == id); //TODO
+            //return null;
+        }
+
+        private Student Read(string id)
+        {
+            return ctx.Student.FirstOrDefault(t => t.NeptunId == id);
         }
     }
 }
