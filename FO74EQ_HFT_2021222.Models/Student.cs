@@ -44,6 +44,7 @@ namespace FO74EQ_HFT_2021222.Models
         [StringLength(240)]
         public string Email { get; set; }
 
+        [NotMapped]
         public virtual ICollection<GradeBook> GradeBooks { get; set; }
     }
 

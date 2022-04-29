@@ -30,6 +30,7 @@ namespace FO74EQ_HFT_2021222.Models
         [Range(1,500)]
         public int Capacity { get; set; }
 
+        [NotMapped]
         public virtual ICollection<Course> Courses { get; set; }
     }
 }

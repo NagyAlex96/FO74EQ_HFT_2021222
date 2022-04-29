@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace FO74EQ_HFT_2021222.Models
@@ -42,13 +43,22 @@ namespace FO74EQ_HFT_2021222.Models
         [Range(1,99)]
         public int Credit { get; set; }
 
+        [ForeignKey(nameof(ClassRoom))]
         public int ClassRoomId { get; set; }
 
+        [ForeignKey(nameof(Requirement))]
         public int RequirementId { get; set; }
 
+        [JsonIgnore]
         public virtual ClassRoom ClassRoom { get; set; }
+
+        [JsonIgnore]
         public virtual Course Requirement { get; set; }
+
+        [NotMapped]
         public virtual ICollection<GradeBook> GradeBooks { get; set; }
+
+        [NotMapped]
         public virtual ICollection<Course> InverseRequirement { get; set; }
     }
 

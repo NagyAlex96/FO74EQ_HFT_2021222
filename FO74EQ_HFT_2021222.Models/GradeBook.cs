@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace FO74EQ_HFT_2021222.Models
@@ -33,14 +34,17 @@ namespace FO74EQ_HFT_2021222.Models
 
         [Range(6, 6)]
         [Required]
+        [ForeignKey(nameof(Neptun))]
         public string NeptunId { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
+        [ForeignKey(nameof(Teacher))]
         public int TeacherId { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
+        [ForeignKey(nameof(Course))]
         public int CourseId { get; set; }
 
         [Range(1,5)]
@@ -49,8 +53,13 @@ namespace FO74EQ_HFT_2021222.Models
         [Range(1,5)]
         public int Rating { get; set; }
 
+        [JsonIgnore]
         public virtual Course Course { get; set; }
+        
+        [JsonIgnore]
         public virtual Student Neptun { get; set; }
+
+        [JsonIgnore]
         public virtual Teacher Teacher { get; set; }
     }
 

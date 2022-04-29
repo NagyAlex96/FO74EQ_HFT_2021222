@@ -45,6 +45,7 @@ namespace FO74EQ_HFT_2021222.Models
         [Range(0,1000000)]
         public int Salary { get; set; }
 
+        [NotMapped]
         public virtual ICollection<GradeBook> GradeBooks { get; set; }
     }
 
