@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FO74EQ_HFT_2021222.Logic.Interfaces
 {
-    internal interface ITeacher
+    public interface ITeacher
     {
         void Create(Teacher item);
         void Delete(int id);

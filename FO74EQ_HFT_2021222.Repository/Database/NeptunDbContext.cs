@@ -60,7 +60,7 @@ namespace FO74EQ_HFT_2021222.Repository.Database
                 .OnDelete(DeleteBehavior.Cascade));
 
             //kurzusokId --> előfeltétel
-            modelBuilder.Entity<Course>(course => course //TODO FK?
+            modelBuilder.Entity<Course>(course => course //TODO FK, hogy kellene megoldani. Tesztelés sem jó miatta (MOCK)
                 .HasOne(course => course.Requirement)
                 .WithMany(course => course.InverseRequirement)
                 .OnDelete(DeleteBehavior.Cascade));

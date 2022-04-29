@@ -15,10 +15,6 @@ namespace FO74EQ_HFT_2021222.Models
             GradeBooks = new HashSet<GradeBook>();
         }
 
-        /// <summary>
-        /// Splitting a string line
-        /// </summary>
-        /// <param name="line">input</param>
         public Teacher(string line)
         {
             string[] split = line.Split('#');

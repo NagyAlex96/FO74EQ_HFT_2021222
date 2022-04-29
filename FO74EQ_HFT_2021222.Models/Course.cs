@@ -47,7 +47,7 @@ namespace FO74EQ_HFT_2021222.Models
         public int ClassRoomId { get; set; }
 
         [ForeignKey(nameof(Requirement))]
-        public int RequirementId { get; set; }
+        public int? RequirementId { get; set; }
 
         [JsonIgnore]
         public virtual ClassRoom ClassRoom { get; set; }

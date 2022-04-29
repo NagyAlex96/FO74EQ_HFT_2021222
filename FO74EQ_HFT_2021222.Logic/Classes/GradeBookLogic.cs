@@ -4,15 +4,14 @@ using FO74EQ_HFT_2021222.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FO74EQ_HFT_2021222.Logic.Classes
 {
     public class GradeBookLogic : IGradeBook
     {
         IRepository<GradeBook> gradeRepo;
-        IRepository<Student> studRepo; //for nonCrud methods
+        //TODO érdemes létrehozni?
+        //IRepository<Student> studRepo; //for nonCrud methods
 
         public GradeBookLogic(IRepository<GradeBook> repository)
         {
@@ -45,47 +44,30 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
             this.gradeRepo.Update(item);
         }
 
-        #endregion    
+        #endregion
 
-        //adott tanárhoz tartozó diákok neve
+        #region Non-Crud
+
         public IEnumerable<Student> GetAverageOfSelectedStudent(int teacherId)
         {
-            var temp = gradeRepo.ReadAll();
-            List<Student> vissza = new List<Student>();
-            foreach (var grade in temp)
+            //TODO: hibakezelés
+            var gradeRead = gradeRepo.ReadAll();
+            List<Student> selectedStudents = new List<Student>();
+
+            foreach (var grade in gradeRead)
             {
                 if (teacherId == grade.TeacherId)
                 {
-                    foreach (var student in temp)
+                    foreach (var student in gradeRead)
                     {
-                        vissza.Add(student.Neptun);
+                        selectedStudents.Add(student.Neptun);
                     }
                 }
             }
 
-            //var Q3 = from x in gradeRepo.ReadAll()
-            //         join y in studRepo.ReadAll()
-            //         on x.NeptunId equals y.NeptunId
-            //         orderby y.NeptunId descending
-            //         select new Student()
-            //         {
-            //             FirstName = $"{y.FirstName}{y.LastName}",
-            //             Average = gradeRepo.ReadAll().
-            //             Average(r => r.Rating),
-            //         };
-
-            //var Q3 = from x in gradeRepo.ReadAll()
-            //         join y in studRepo.ReadAll()
-            //         on x.NeptunId equals y.NeptunId
-            //         orderby y.NeptunId descending
-            //         select new
-            //         {
-            //             FullName = $"{y.FirstName}{y.LastName}",
-            //             Average = gradeRepo.ReadAll().
-            //             Average(r => r.Rating),
-            //         };
-
-            return null;
+            return selectedStudents;
         }
+
+        #endregion    
     }
 }
