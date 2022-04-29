@@ -38,11 +38,14 @@ namespace FO74EQ_HFT_2021222.Repository.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //TODO összekapcsolás sorrendje mindegy?
+            //DeleteBehavior.ClientSetNull érdemes használni?
             modelBuilder.Entity<ClassRoom>(cRoom => cRoom
                 .HasMany(cRoom => cRoom.Courses)
                 .WithOne(Course => Course.ClassRoom)
                 .HasForeignKey(Course => Course.ClassRoomId)
                 .OnDelete(DeleteBehavior.Cascade));
+            // - DeleteBehavior.ClientSetNull: Csak olyanra engedi kiadni a törlést, amire nincs hivatkozás. Egyéb esetben, elszállna kivétellel.
 
             modelBuilder.Entity<Student>(stud => stud
                 .HasMany(stud => stud.GradeBooks)
@@ -56,6 +59,7 @@ namespace FO74EQ_HFT_2021222.Repository.Database
                 .HasForeignKey(grade => grade.TeacherId)
                 .OnDelete(DeleteBehavior.Cascade));
 
+            //kurzusokId --> előfeltétel
             modelBuilder.Entity<Course>(course => course //TODO FK?
                 .HasOne(course => course.Requirement)
                 .WithMany(course => course.InverseRequirement)

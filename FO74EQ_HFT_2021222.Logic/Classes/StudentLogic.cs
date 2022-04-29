@@ -18,6 +18,7 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
             this.repo = repository;
         }
 
+        #region CRUD
         public void Create(Student item)
         {
             this.repo.Create(item);
@@ -47,5 +48,7 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
         {
             this.repo.Update(item);
         }
+
+        #endregion    
     }
 }

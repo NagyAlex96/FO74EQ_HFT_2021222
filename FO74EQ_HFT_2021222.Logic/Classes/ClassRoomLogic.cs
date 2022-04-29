@@ -12,12 +12,12 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
     public class ClassRoomLogic : IClassRoom
     {
         IRepository<ClassRoom> repo;
-
         public ClassRoomLogic(IRepository<ClassRoom> repository)
         {
             this.repo = repository;
         }
 
+        #region CRUD
         public void Create(ClassRoom item)
         {
             this.repo.Create(item);
@@ -42,5 +42,7 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
         {
             this.repo.Update(item);
         }
+
+        #endregion    
     }
 }

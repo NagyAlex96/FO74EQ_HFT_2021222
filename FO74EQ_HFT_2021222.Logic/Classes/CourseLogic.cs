@@ -12,12 +12,12 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
     public class CourseLogic : ICourse
     {
         IRepository<Course> repo;
-
         public CourseLogic(IRepository<Course> repository)
         {
             this.repo = repository;
         }
 
+        #region CRUD
         public void Create(Course item)
         {
             this.repo.Create(item);
@@ -41,6 +41,7 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
         public void Update(Course item)
         {
             this.repo.Update(item);
-        }
+        } 
+        #endregion
     }
 }
