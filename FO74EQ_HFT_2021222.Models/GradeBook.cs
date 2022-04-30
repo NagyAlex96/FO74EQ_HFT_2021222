@@ -20,7 +20,7 @@ namespace FO74EQ_HFT_2021222.Models
         {
             string[] split = line.Split('#');
             this.GradeBookId = int.Parse(split[0]);
-            this.NeptunId = split[1];
+            this.NeptunId = int.Parse(split[1]);
             this.TeacherId = int.Parse(split[2]);
             this.CourseId = int.Parse(split[3]);
             this.Grade = int.Parse(split[4]);
@@ -32,10 +32,9 @@ namespace FO74EQ_HFT_2021222.Models
         [Required]
         public int GradeBookId { get; set; }
 
-        [Range(6, 6)]
         [Required]
         [ForeignKey(nameof(Neptun))]
-        public string NeptunId { get; set; }
+        public int NeptunId { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]

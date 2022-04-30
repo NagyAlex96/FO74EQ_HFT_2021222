@@ -18,7 +18,7 @@ namespace FO74EQ_HFT_2021222.Models
         public Student(string line)
         {
             string[] split = line.Split('#');
-            this.NeptunId = split[0];
+            this.NeptunId = int.Parse(split[0]);
             this.FirstName = split[1];
             this.LastName = split[2];
             this.DateOfBirth = DateTime.Parse(split[3].Replace('*', '.'));
@@ -26,9 +26,8 @@ namespace FO74EQ_HFT_2021222.Models
         }
 
         [Key]
-        [Range(6,6)]
         [Required]
-        public string NeptunId { get; set; }
+        public int NeptunId { get; set; }
         
         [Required]
         [StringLength(240)]
