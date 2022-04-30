@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace FO74EQ_HFT_2021222.Logic.Classes
 {
-    public class GradeBookLogic : IGradeBook
+    public class GradeBookLogic : IGradeBookLogic
     {
         IRepository<GradeBook> gradeRepo;
         //TODO minden osztálynak kell, hogy legyen 5 Non-crud metódusa, vagy összesen kell annyi?

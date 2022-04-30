@@ -8,9 +8,9 @@ namespace FO74EQ_HFT_2021222.Endpoint.Controllers
 {
     public class ClassRoomController : Controller
     {
-        IClassRoom logic;
+        IClassRoomLogic logic;
 
-        public ClassRoomController(IClassRoom classRoom)
+        public ClassRoomController(IClassRoomLogic classRoom)
         {
             this.logic = classRoom;
         }

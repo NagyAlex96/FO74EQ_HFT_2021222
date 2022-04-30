@@ -8,8 +8,8 @@ namespace FO74EQ_HFT_2021222.Endpoint.Controllers
 {
     public class CourseController : Controller
     {
-		ICourse logic;
-        public CourseController(ICourse logic)
+		ICourseLogic logic;
+        public CourseController(ICourseLogic logic)
         {
             this.logic = logic;
         }

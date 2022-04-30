@@ -8,9 +8,9 @@ namespace FO74EQ_HFT_2021222.Endpoint.Controllers
 {
     public class GradeBookController : Controller
     {
-		IGradeBook logic;
+		IGradeBookLogic logic;
 
-        public GradeBookController(IGradeBook logic)
+        public GradeBookController(IGradeBookLogic logic)
         {
             this.logic = logic;
         }

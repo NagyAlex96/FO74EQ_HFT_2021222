@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FO74EQ_HFT_2021222.Logic.Classes
 {
-    public class CourseLogic : ICourse
+    public class CourseLogic : ICourseLogic
     {
         IRepository<Course> repo;
         public CourseLogic(IRepository<Course> repository)

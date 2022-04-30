@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace FO74EQ_HFT_2021222.Logic.Interfaces
 {
-    public interface ITeacher
+    public interface IGradeBookLogic
     {
-        void Create(Teacher item);
+        void Create(GradeBook item);
         void Delete(int id);
-        Teacher Read(int id);
-        IQueryable<Teacher> ReadAll();
-        void Update(Teacher item);
+        GradeBook Read(int id);
+        IQueryable<GradeBook> ReadAll();
+        void Update(GradeBook item);
     }
 }

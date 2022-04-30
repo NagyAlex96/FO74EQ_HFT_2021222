@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace FO74EQ_HFT_2021222.Logic.Interfaces
 {
-    public interface IStudent
+    public interface ICourseLogic
     {
-        void Create(Student item);
+        void Create(Course item);
         void Delete(int id);
-        Student Read(int id);
-        IQueryable<Student> ReadAll();
-        void Update(Student item);
+        Course Read(int id);
+        IQueryable<Course> ReadAll();
+        void Update(Course item);
     }
 }

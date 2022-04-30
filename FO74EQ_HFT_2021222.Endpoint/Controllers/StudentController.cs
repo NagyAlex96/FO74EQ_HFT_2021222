@@ -8,9 +8,9 @@ namespace FO74EQ_HFT_2021222.Endpoint.Controllers
 {
     public class StudentController : Controller
     {
-		IStudent logic;
+		IStudentLogic logic;
 
-        public StudentController(IStudent logic)
+        public StudentController(IStudentLogic logic)
         {
             this.logic = logic;
         }

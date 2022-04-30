@@ -18,16 +18,16 @@ namespace FO74EQ_HFT_2021222.Endpoint
         {
             services.AddControllers();
 
-            services.AddTransient<IClassRoom, ClassRoomLogic>();
+            services.AddTransient<IClassRoomLogic, ClassRoomLogic>();
             services.AddTransient<ClassRoomRepository, ClassRoomRepository>(); //ez így jó lesz?  
             
-            services.AddTransient<ICourse, CourseLogic>();
+            services.AddTransient<ICourseLogic, CourseLogic>();
             services.AddTransient<CourseRespository, CourseRespository>();            
-            services.AddTransient<IGradeBook, GradeBookLogic>();
+            services.AddTransient<IGradeBookLogic, GradeBookLogic>();
             services.AddTransient<GradeBookRepository, GradeBookRepository>();            
-            services.AddTransient<IStudent, StudentLogic>();
+            services.AddTransient<IStudentLogic, StudentLogic>();
             services.AddTransient<StudentRepository, StudentRepository>();            
-            services.AddTransient<ITeacher, TeacherLogic>();
+            services.AddTransient<ITeacherLogic, TeacherLogic>();
             services.AddTransient<TeacherRepository, TeacherRepository>();
 
             services.AddTransient<NeptunDbContext, NeptunDbContext>();

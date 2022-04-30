@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FO74EQ_HFT_2021222.Logic.Classes
 {
-    public class StudentLogic : IStudent
+    public class StudentLogic : IStudentLogic
     {
         const int youngestStudent = 18;
         IRepository<Student> repo;

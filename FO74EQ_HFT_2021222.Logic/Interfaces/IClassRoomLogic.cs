@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace FO74EQ_HFT_2021222.Logic.Interfaces
 {
-    public interface ICourse
+    public interface IClassRoomLogic
     {
-        void Create(Course item);
+        void Create(ClassRoom item);
         void Delete(int id);
-        Course Read(int id);
-        IQueryable<Course> ReadAll();
-        void Update(Course item);
+        ClassRoom Read(int id);
+        IQueryable<ClassRoom> ReadAll();
+        void Update(ClassRoom item);
     }
 }

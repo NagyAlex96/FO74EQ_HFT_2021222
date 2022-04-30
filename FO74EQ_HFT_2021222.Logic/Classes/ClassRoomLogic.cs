@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FO74EQ_HFT_2021222.Logic.Classes
 {
-    public class ClassRoomLogic : IClassRoom
+    public class ClassRoomLogic : IClassRoomLogic
     {
         IRepository<ClassRoom> repo;
         public ClassRoomLogic(IRepository<ClassRoom> repository)
