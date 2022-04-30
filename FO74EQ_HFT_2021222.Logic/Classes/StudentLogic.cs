@@ -24,14 +24,14 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
         {
             int compareResult = DateTime.Compare(item.DateOfBirth, DateTime.Now.AddYears(youngestStudent < 18 ? -18 : youngestStudent));
 
-            bool condition = item.NeptunId == ""
+            bool condition = item.NeptunId < 1
                 || item.FirstName == ""
                 || item.LastName == ""
                 || item.Email == ""
                 || compareResult < 1;
             if (condition)
             {
-                throw new Exception("Hibás adatbevitel. Az összes adatot ki kell töltenie.");
+                throw new Exception("Hibás az adatbevitel vagy nem töltötte ki összes adatot");
             }
             this.repo.Create(item);
         }
@@ -41,15 +41,10 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
             this.repo.Delete(id);
         }
 
-        public Student Read(int id) //TODO
+        public Student Read(int id)
         {
             return this.repo.Read(id);
         }
-
-        //public Student Read(string id) //TODO
-        //{
-        //    return this.repo.Read(id);
-        //}
 
         public IQueryable<Student> ReadAll()
         {

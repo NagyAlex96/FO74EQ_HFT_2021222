@@ -68,7 +68,7 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
                     into f
                    select new KeyValuePair<string, double>
                    (
-                       f.Key,
+                       f.Key.ToString(),
                        f.Average(t => t.Grade)
                    );
             ;

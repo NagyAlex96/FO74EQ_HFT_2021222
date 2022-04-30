@@ -43,9 +43,11 @@ namespace FO74EQ_HFT_2021222.Models
         [Range(1,99)]
         public int Credit { get; set; }
 
+        [Required]
         [ForeignKey(nameof(ClassRoom))]
         public int ClassRoomId { get; set; }
 
+        [Required]
         [ForeignKey(nameof(Requirement))]
         public int? RequirementId { get; set; }
 

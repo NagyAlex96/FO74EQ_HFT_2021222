@@ -19,7 +19,6 @@ namespace FO74EQ_HFT_2021222.Repository.Model_Repository
 
         public override void Update(Student item)
         {
-            //var old = 1; //TODO
             var old = Read(item.NeptunId);
             foreach (var prop in old.GetType().GetProperties())
             {
@@ -29,13 +28,6 @@ namespace FO74EQ_HFT_2021222.Repository.Model_Repository
         }
 
         public override Student Read(int id) //TODO
-        {
-            throw new NotImplementedException();
-            //return ctx.Student.FirstOrDefault(t => t.NeptunId == id); //TODO
-            //return null;
-        }
-
-        public Student Read(string id)
         {
             return ctx.Student.FirstOrDefault(t => t.NeptunId == id);
         }

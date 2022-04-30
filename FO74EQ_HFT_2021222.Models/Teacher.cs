@@ -26,8 +26,8 @@ namespace FO74EQ_HFT_2021222.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Range(1,10000)]
         [Required]
-        //Primary Key
         public int TeacherId { get; set; }
 
         [Required]

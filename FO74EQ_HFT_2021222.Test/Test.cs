@@ -75,12 +75,12 @@ namespace FO74EQ_HFT_2021222.Test
             var gradeBookInputData = new List<GradeBook>()
             {
                 //GradeBookId, NeptunId, TeacherId, CourseId, Grade, Rating
-                new GradeBook("1#OEB001#1#5#4#4"),
-                new GradeBook("2#OEB002#2#4#3#2"),
-                new GradeBook("3#OEB003#3#3#2#4"),
-                new GradeBook("4#OEB004#4#2#5#3"),
-                new GradeBook("5#OEB005#5#1#2#2"),
-                new GradeBook("5#OEB005#6#10#3#4"),
+                new GradeBook("1#1#1#5#4#4"),
+                new GradeBook("2#2#2#4#3#2"),
+                new GradeBook("3#3#3#3#2#4"),
+                new GradeBook("4#4#4#2#5#3"),
+                new GradeBook("5#5#5#1#2#2"),
+                new GradeBook("5#5#6#10#3#4"),
             }.AsQueryable();
 
 
@@ -94,11 +94,11 @@ namespace FO74EQ_HFT_2021222.Test
             var studentInputData = new List<Student>()
             {
                 //NeptunId, FirstName, LastName, DateOfBirth, Email
-                new Student("OEB001#Haney#Macy#06*26*1999#non.nisi.Aenean@Nuncuterat.ca"),
-                new Student("OEB002#Mosley#Willow#04*07*2000#Ut@elementumategestas.ca"),
-                new Student("OEB003#Chambers#Ira#07*16*1999#dui.semper@Namacnulla.edu"),
-                new Student("OEB004#Parsons#Hayley#08*14*2000#egestas.a@et.co.uk"),
-                new Student("OEB005#Tanner#Jeanette#01*21*1998#blandit@egetmollis.net"),
+                new Student("1#Haney#Macy#06*26*1999#non.nisi.Aenean@Nuncuterat.ca"),
+                new Student("2#Mosley#Willow#04*07*2000#Ut@elementumategestas.ca"),
+                new Student("3#Chambers#Ira#07*16*1999#dui.semper@Namacnulla.edu"),
+                new Student("4#Parsons#Hayley#08*14*2000#egestas.a@et.co.uk"),
+                new Student("5#Tanner#Jeanette#01*21*1998#blandit@egetmollis.net"),
             }.AsQueryable();
 
 
@@ -148,7 +148,7 @@ namespace FO74EQ_HFT_2021222.Test
         {
             Assert.That(() => studentLogic.Create(new Student
             {
-                NeptunId = "OEN001",
+                NeptunId = 1,
                 FirstName = "John",
                 LastName = "Ryan",
                 DateOfBirth = new DateTime(2005, 03, 01),
@@ -163,7 +163,7 @@ namespace FO74EQ_HFT_2021222.Test
             Assert.That(() => gradeBookLogic.Create(new GradeBook
             {
                 GradeBookId = 1,
-                NeptunId = "OEN002",
+                NeptunId = 2,
                 TeacherId = 1,
                 CourseId = 2,
                 Grade = 3,

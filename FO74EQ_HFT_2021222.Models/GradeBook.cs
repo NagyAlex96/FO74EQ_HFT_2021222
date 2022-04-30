@@ -34,6 +34,7 @@ namespace FO74EQ_HFT_2021222.Models
 
         [Required]
         [ForeignKey(nameof(Neptun))]
+        [Range(1,10000)]
         public int NeptunId { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

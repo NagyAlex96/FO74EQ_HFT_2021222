@@ -26,6 +26,7 @@ namespace FO74EQ_HFT_2021222.Models
         }
 
         [Key]
+        [Range(1, 10000)]
         [Required]
         public int NeptunId { get; set; }
         
@@ -41,6 +42,7 @@ namespace FO74EQ_HFT_2021222.Models
         public DateTime DateOfBirth { get; set; }
 
         [StringLength(240)]
+        [Required]
         public string Email { get; set; }
 
         [NotMapped]
