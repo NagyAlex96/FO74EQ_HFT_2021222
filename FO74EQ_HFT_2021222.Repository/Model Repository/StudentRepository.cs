@@ -27,7 +27,7 @@ namespace FO74EQ_HFT_2021222.Repository.Model_Repository
             ctx.SaveChanges();
         }
 
-        public override Student Read(int id) //TODO
+        public override Student Read(int id)
         {
             return ctx.Student.FirstOrDefault(t => t.NeptunId == id);
         }

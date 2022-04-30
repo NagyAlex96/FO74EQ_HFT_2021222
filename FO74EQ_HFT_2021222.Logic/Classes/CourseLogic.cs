@@ -20,6 +20,14 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
         #region CRUD
         public void Create(Course item)
         {
+            if(item.ClassRoomId < 1)
+            {
+                throw new Exception("ClassRoomId cannot be smaller than 1");
+            }
+            else if(repo.ReadAll().Contains(item))
+            {
+                throw new Exception("This item is already exsist!");
+            }
             this.repo.Create(item);
         }
 

@@ -11,7 +11,9 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
     {
         IRepository<GradeBook> gradeRepo;
         //TODO minden osztálynak kell, hogy legyen 5 Non-crud metódusa, vagy összesen kell annyi?
+
         IRepository<Student> studRepo; //for nonCrud methods
+        IRepository<Teacher> teachRepo; //for nonCrud methods
 
         public GradeBookLogic(IRepository<GradeBook> repository)
         {
@@ -23,6 +25,13 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
             this.gradeRepo = gradeRepo;
             this.studRepo = studRepo;
         }
+
+        public GradeBookLogic(IRepository<GradeBook> gradeRepo, IRepository<Teacher> teachRepo)
+        {
+            this.gradeRepo = gradeRepo;
+            this.teachRepo = teachRepo;
+        }
+
 
         #region CRUD
         public void Create(GradeBook item)
@@ -54,8 +63,7 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
 
         #region Non-Crud
 
-        //listázza ki az össze tanuló átlagát
-        public IEnumerable<KeyValuePair<string, double>> GetAllStudentAverage()
+        public IEnumerable<KeyValuePair<string, double>> GetAllStudentAverageGrade()
         {
             //TODO: hibakezelést érdemes megcsinálni?
             var gradeRead = gradeRepo.ReadAll();
@@ -73,6 +81,25 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
                    );
             ;
         }
+
+        public IEnumerable<KeyValuePair<string, double>> GetAverageRatingOfTeacher()
+        {
+            var gradeRead = gradeRepo.ReadAll();
+            var teacherRead = teachRepo.ReadAll();
+
+
+            return from x in gradeRead
+                   join y in teacherRead on x.TeacherId equals y.TeacherId
+                   group x by y.TeacherId
+                   into f
+                   select new KeyValuePair<string, double>
+                   (
+                       f.Key.ToString(),
+                       f.Average(t => t.Rating)
+                   );
+            ;
+        }
+
 
         #endregion    
     }

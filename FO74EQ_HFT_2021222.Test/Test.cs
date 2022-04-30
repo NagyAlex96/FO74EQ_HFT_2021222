@@ -16,10 +16,15 @@ namespace FO74EQ_HFT_2021222.Test
     public class Test
     {
         ClassRoomLogic classRoomLogic;
+
         CourseLogic courseLogic;
+
         GradeBookLogic gradeBookLogic;
         GradeBookLogic gradeBookLogic2;
+        GradeBookLogic gradeBookLogic3;
+
         StudentLogic studentLogic;
+
         TeacherLogic teacherLogic;
 
 
@@ -81,6 +86,9 @@ namespace FO74EQ_HFT_2021222.Test
                 new GradeBook("4#4#4#2#5#3"),
                 new GradeBook("5#5#5#1#2#2"),
                 new GradeBook("5#5#6#10#3#4"),
+
+                new GradeBook("5#1#6#12#3#2"),
+                new GradeBook("5#1#6#15#5#3"),
             }.AsQueryable();
 
 
@@ -127,10 +135,13 @@ namespace FO74EQ_HFT_2021222.Test
 
             #endregion
 
-            gradeBookLogic2 = new GradeBookLogic(mockGradeBookRepository.Object, mockStudentRepository.Object);
+            gradeBookLogic2 = new GradeBookLogic(mockGradeBookRepository.Object, mockStudentRepository.Object);            
+            
+            gradeBookLogic3 = new GradeBookLogic(mockGradeBookRepository.Object, mockTeacherRepository.Object);
 
         }
 
+        #region Test
         [Test]
         public void CreateTeacherTest()
         {
@@ -173,13 +184,13 @@ namespace FO74EQ_HFT_2021222.Test
         }
 
         [Test]
-        public void GradeBookGetAllStudentOfSpecificTeacher()
+        public void GetAverageGradeOfStudentsTest()
         {
             //GradeBookId, NeptunId, TeacherId, CourseId, Grade, Rating
 
 
-            var result = gradeBookLogic2.GetAllStudentAverage();
-            
+            var result = gradeBookLogic2.GetAllStudentAverageGrade();
+
             var expected = new List<KeyValuePair<string, double>>()
             {
                 new KeyValuePair<string, double>("OEB005", 2.5)
@@ -188,5 +199,22 @@ namespace FO74EQ_HFT_2021222.Test
             Assert.That(expected, Is.EqualTo(expected));
         }
 
+        [Test]
+        public void GetAverageRatingOfTeacherRatingTest()
+        {
+            //GradeBookId, NeptunId, TeacherId, CourseId, Grade, Rating
+
+
+            var result = gradeBookLogic3.GetAverageRatingOfTeacher();
+
+            var expected = new List<KeyValuePair<string, double>>()
+            {
+                new KeyValuePair<string, double>("1", 3)
+            };
+
+            Assert.That(expected, Is.EqualTo(expected));
+        }
+
+        #endregion
     }
 }
