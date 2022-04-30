@@ -10,7 +10,7 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
     public class GradeBookLogic : IGradeBookLogic
     {
         IRepository<GradeBook> gradeRepo;
-        //TODO minden osztálynak kell, hogy legyen 5 Non-crud metódusa, vagy összesen kell annyi?
+        //TODO minden osztálynak kell, hogy legyen 5 Non-crud metódusa, vagy összesen kell 5?
 
         IRepository<Student> studRepo; //for nonCrud methods
         IRepository<Teacher> teachRepo; //for nonCrud methods
@@ -31,7 +31,6 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
             this.gradeRepo = gradeRepo;
             this.teachRepo = teachRepo;
         }
-
 
         #region CRUD
         public void Create(GradeBook item)

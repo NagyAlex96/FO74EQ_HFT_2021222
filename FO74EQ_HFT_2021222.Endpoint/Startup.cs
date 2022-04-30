@@ -19,22 +19,23 @@ namespace FO74EQ_HFT_2021222.Endpoint
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //nagyon fontos a sorrend. Ha IRepository késõbb van meghívva, mint az Logic, akkor hibát dob
+
             services.AddTransient<NeptunDbContext>();
 
-            services.AddTransient<IClassRoomLogic, ClassRoomLogic>();
-            services.AddTransient<IRepository<ClassRoom>, ClassRoomRepository>(); 
-
-            services.AddTransient<ICourseLogic, CourseLogic>();
+            services.AddTransient<IRepository<ClassRoom>, ClassRoomRepository>();
             services.AddTransient<IRepository<Course>, CourseRespository>();
-
-            services.AddTransient<IGradeBookLogic, GradeBookLogic>();
             services.AddTransient<IRepository<GradeBook>, GradeBookRepository>();
-
-            services.AddTransient<IStudentLogic, StudentLogic>();
             services.AddTransient<IRepository<Student>, StudentRepository>();
+            //services.AddTransient<IRepository<Teacher>, TeacherRepository>();
 
-            services.AddTransient<ITeacherLogic, TeacherLogic>();
-            services.AddTransient<IRepository<Teacher>, TeacherRepository>();
+            //TODO Teacher-re elszáll a program
+
+            services.AddTransient<IClassRoomLogic, ClassRoomLogic>();
+            services.AddTransient<ICourseLogic, CourseLogic>();
+            services.AddTransient<IGradeBookLogic, GradeBookLogic>();
+            services.AddTransient<IStudentLogic, StudentLogic>();
+            //services.AddTransient<ITeacherLogic, TeacherLogic>();
 
             services.AddControllers();
             

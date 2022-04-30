@@ -57,7 +57,6 @@ namespace FO74EQ_HFT_2021222.Test
             #endregion
 
             #region Course
-            //TODO: Null kezelése
             var courseInputData = new List<Course>()
             {
                 //CourseId, Name, DateOfAnnounced, Credit, ClassRoomId, RequirementId
@@ -135,8 +134,8 @@ namespace FO74EQ_HFT_2021222.Test
 
             #endregion
 
-            gradeBookLogic2 = new GradeBookLogic(mockGradeBookRepository.Object, mockStudentRepository.Object);            
-            
+            gradeBookLogic2 = new GradeBookLogic(mockGradeBookRepository.Object, mockStudentRepository.Object);
+
             gradeBookLogic3 = new GradeBookLogic(mockGradeBookRepository.Object, mockTeacherRepository.Object);
 
         }
@@ -179,6 +178,21 @@ namespace FO74EQ_HFT_2021222.Test
                 CourseId = 2,
                 Grade = 3,
                 Rating = 3
+
+            }), Throws.Nothing);
+        }
+
+        [Test]
+        public void CreateCourseTest()
+        {
+            Assert.That(() => courseLogic.Create(new Course
+            {
+                CourseId = 1,
+                Name = "Biológia",
+                DateOfAnnounced = new DateTime(2020, 01, 01),
+                Credit = 5,
+                ClassRoomId = 2,
+                RequirementId = 1,
 
             }), Throws.Nothing);
         }

@@ -180,57 +180,57 @@ namespace FO74EQ_HFT_2021222.Client
                 rest.Delete(id, "actor");
             }
         }
-
-
         static void Main(string[] args)
         {
-            rest = new RestService("http://localhost:48036/", "GradeBook");
+            Console.WriteLine("lefutott");
 
-            var classRoomSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("List", () => List("ClassRoom"))
-                .Add("Create", () => Create("ClassRoom"))
-                .Add("Delete", () => Delete("ClassRoom"))
-                .Add("Update", () => Update("ClassRoom"))
-                .Add("Exit", ConsoleMenu.Close);
+            //rest = new RestService("http://localhost:48036/", "GradeBook");
 
-            var courseSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("List", () => List("Course"))
-                .Add("Create", () => Create("Course"))
-                .Add("Delete", () => Delete("Course"))
-                .Add("Update", () => Update("Course"))
-                .Add("Exit", ConsoleMenu.Close);
+            //var classRoomSubMenu = new ConsoleMenu(args, level: 1)
+            //    .Add("List", () => List("ClassRoom"))
+            //    .Add("Create", () => Create("ClassRoom"))
+            //    .Add("Delete", () => Delete("ClassRoom"))
+            //    .Add("Update", () => Update("ClassRoom"))
+            //    .Add("Exit", ConsoleMenu.Close);
 
-            var gradeBookSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("List", () => List("GradeBook"))
-                .Add("Create", () => Create("GradeBook"))
-                .Add("Delete", () => Delete("GradeBook"))
-                .Add("Update", () => Update("GradeBook"))
-                .Add("Exit", ConsoleMenu.Close);
+            //var courseSubMenu = new ConsoleMenu(args, level: 1)
+            //    .Add("List", () => List("Course"))
+            //    .Add("Create", () => Create("Course"))
+            //    .Add("Delete", () => Delete("Course"))
+            //    .Add("Update", () => Update("Course"))
+            //    .Add("Exit", ConsoleMenu.Close);
 
-            var studentSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("List", () => List("Student"))
-                .Add("Create", () => Create("Student"))
-                .Add("Delete", () => Delete("Student"))
-                .Add("Update", () => Update("Student"))
-                .Add("Exit", ConsoleMenu.Close);
+            //var gradeBookSubMenu = new ConsoleMenu(args, level: 1)
+            //    .Add("List", () => List("GradeBook"))
+            //    .Add("Create", () => Create("GradeBook"))
+            //    .Add("Delete", () => Delete("GradeBook"))
+            //    .Add("Update", () => Update("GradeBook"))
+            //    .Add("Exit", ConsoleMenu.Close);
 
-            var teacherSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("List", () => List("Teacher"))
-                .Add("Create", () => Create("Teacher"))
-                .Add("Delete", () => Delete("Teacher"))
-                .Add("Update", () => Update("Teacher"))
-                .Add("Exit", ConsoleMenu.Close);
+            //var studentSubMenu = new ConsoleMenu(args, level: 1)
+            //    .Add("List", () => List("Student"))
+            //    .Add("Create", () => Create("Student"))
+            //    .Add("Delete", () => Delete("Student"))
+            //    .Add("Update", () => Update("Student"))
+            //    .Add("Exit", ConsoleMenu.Close);
+
+            //var teacherSubMenu = new ConsoleMenu(args, level: 1)
+            //    .Add("List", () => List("Teacher"))
+            //    .Add("Create", () => Create("Teacher"))
+            //    .Add("Delete", () => Delete("Teacher"))
+            //    .Add("Update", () => Update("Teacher"))
+            //    .Add("Exit", ConsoleMenu.Close);
 
 
-            var menu = new ConsoleMenu(args, level: 0)
-                .Add("Students", () => studentSubMenu.Show())
-                .Add("ClassRooms", () => classRoomSubMenu.Show())
-                .Add("Courses", () => courseSubMenu.Show())
-                .Add("GradeBooks", () => gradeBookSubMenu.Show())
-                .Add("Teachers", () => teacherSubMenu.Show())
-                .Add("Exit", ConsoleMenu.Close);
+            //var menu = new ConsoleMenu(args, level: 0)
+            //    .Add("Students", () => studentSubMenu.Show())
+            //    .Add("ClassRooms", () => classRoomSubMenu.Show())
+            //    .Add("Courses", () => courseSubMenu.Show())
+            //    .Add("GradeBooks", () => gradeBookSubMenu.Show())
+            //    .Add("Teachers", () => teacherSubMenu.Show())
+            //    .Add("Exit", ConsoleMenu.Close);
 
-            menu.Show();
+            //menu.Show();
 
         }
     }

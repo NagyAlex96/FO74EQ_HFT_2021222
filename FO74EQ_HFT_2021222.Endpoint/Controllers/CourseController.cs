@@ -6,7 +6,9 @@ using System.Collections.Generic;
 
 namespace FO74EQ_HFT_2021222.Endpoint.Controllers
 {
-    public class CourseController : Controller
+	[Route("[controller]")]
+	[ApiController]
+	public class CourseController : Controller
     {
 		ICourseLogic logic;
         public CourseController(ICourseLogic logic)
