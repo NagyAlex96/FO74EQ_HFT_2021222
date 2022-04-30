@@ -19,7 +19,7 @@ namespace FO74EQ_HFT_2021222.Endpoint
             services.AddControllers();
 
             services.AddTransient<IClassRoomLogic, ClassRoomLogic>();
-            services.AddTransient<ClassRoomRepository, ClassRoomRepository>(); //ez így jó lesz?  
+            services.AddTransient<ClassRoomRepository, ClassRoomRepository>(); //TODO ez így jó lesz?  
             
             services.AddTransient<ICourseLogic, CourseLogic>();
             services.AddTransient<CourseRespository, CourseRespository>();            
@@ -34,6 +34,8 @@ namespace FO74EQ_HFT_2021222.Endpoint
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+
+        //8.fejezet 10.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             //if (env.IsDevelopment())

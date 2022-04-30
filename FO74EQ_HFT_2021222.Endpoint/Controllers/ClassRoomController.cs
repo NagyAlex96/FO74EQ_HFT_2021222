@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace FO74EQ_HFT_2021222.Endpoint.Controllers
 {
+	//TODO a localhost nem látszódik, csak töltődik
     public class ClassRoomController : Controller
     {
         IClassRoomLogic logic;
