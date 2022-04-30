@@ -11,6 +11,7 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
 {
     public class StudentLogic : IStudent
     {
+        const int youngestStudent = 18;
         IRepository<Student> repo;
 
         public StudentLogic(IRepository<Student> repository)
@@ -21,6 +22,17 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
         #region CRUD
         public void Create(Student item)
         {
+            int compareResult = DateTime.Compare(item.DateOfBirth, DateTime.Now.AddYears(youngestStudent < 18 ? -18 : youngestStudent));
+
+            bool condition = item.NeptunId == ""
+                || item.FirstName == ""
+                || item.LastName == ""
+                || item.Email == ""
+                || compareResult < 1;
+            if (condition)
+            {
+                throw new Exception("Hibás adatbevitel. Az összes adatot ki kell töltenie.");
+            }
             this.repo.Create(item);
         }
 

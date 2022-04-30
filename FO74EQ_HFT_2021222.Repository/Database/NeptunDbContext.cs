@@ -38,38 +38,37 @@ namespace FO74EQ_HFT_2021222.Repository.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //TODO összekapcsolás sorrendje mindegy?
-            //DeleteBehavior.ClientSetNull érdemes használni?
+            //TODO: cascade vagy ClientSetNUll
             modelBuilder.Entity<ClassRoom>(cRoom => cRoom
                 .HasMany(cRoom => cRoom.Courses)
                 .WithOne(Course => Course.ClassRoom)
                 .HasForeignKey(Course => Course.ClassRoomId)
-                .OnDelete(DeleteBehavior.Cascade));
+                .OnDelete(DeleteBehavior.ClientSetNull));
             // - DeleteBehavior.ClientSetNull: Csak olyanra engedi kiadni a törlést, amire nincs hivatkozás. Egyéb esetben, elszállna kivétellel.
 
             modelBuilder.Entity<Student>(stud => stud
                 .HasMany(stud => stud.GradeBooks)
                 .WithOne(grade => grade.Neptun)
                 .HasForeignKey(grade => grade.NeptunId)
-                .OnDelete(DeleteBehavior.Cascade));
+                .OnDelete(DeleteBehavior.ClientSetNull));
 
             modelBuilder.Entity<Teacher>(teacher => teacher
                 .HasMany(teacher => teacher.GradeBooks)
                 .WithOne(grade => grade.Teacher)
                 .HasForeignKey(grade => grade.TeacherId)
-                .OnDelete(DeleteBehavior.Cascade));
-
-            //kurzusokId --> előfeltétel
-            modelBuilder.Entity<Course>(course => course //TODO FK, hogy kellene megoldani. Tesztelés sem jó miatta (MOCK)
+                .OnDelete(DeleteBehavior.ClientSetNull));
+         
+            modelBuilder.Entity<Course>(course => course 
                 .HasOne(course => course.Requirement)
                 .WithMany(course => course.InverseRequirement)
-                .OnDelete(DeleteBehavior.Cascade));
+                .HasForeignKey(course => course.CourseId) //TODO: FK?
+                .OnDelete(DeleteBehavior.ClientSetNull));
 
             modelBuilder.Entity<Course>(course => course
                 .HasMany(course => course.GradeBooks)
                 .WithOne(grade => grade.Course)
                 .HasForeignKey(grade => grade.CourseId)
-                .OnDelete(DeleteBehavior.Cascade));
+                .OnDelete(DeleteBehavior.ClientSetNull));
 
 
             modelBuilder.Entity<ClassRoom>().HasData(new ClassRoom[]

@@ -18,6 +18,7 @@ namespace FO74EQ_HFT_2021222.Test
         ClassRoomLogic classRoomLogic;
         CourseLogic courseLogic;
         GradeBookLogic gradeBookLogic;
+        GradeBookLogic gradeBookLogic2;
         StudentLogic studentLogic;
         TeacherLogic teacherLogic;
 
@@ -51,22 +52,22 @@ namespace FO74EQ_HFT_2021222.Test
             #endregion
 
             #region Course
-            //TODO: error
+            //TODO: Null kezelése
             var courseInputData = new List<Course>()
             {
                 //CourseId, Name, DateOfAnnounced, Credit, ClassRoomId, RequirementId
-                //new Course("1#Subject001#07*30*2019#5#1#NULL"),
-                //new Course("2#Subject002#04*10*2015#3#2#1"),
-                //new Course("3#Subject003#02*15*2017#4#5#2"),
-                //new Course("4#Subject004#07*30*2019#1#4#3"),
-                //new Course("5#Subject005#02*10*2012#2#3#4"),
+                new Course("1#Subject001#07*30*2019#5#1#0"),
+                new Course("2#Subject002#04*10*2015#3#2#1"),
+                new Course("3#Subject003#02*15*2017#4#5#2"),
+                new Course("4#Subject004#07*30*2019#1#4#3"),
+                new Course("5#Subject005#02*10*2012#2#3#4"),
 
             }.AsQueryable();
 
 
-            //mockCourseRespository = new Mock<IRepository<Course>>();
-            //mockCourseRespository.Setup(x => x.ReadAll()).Returns(courseInputData);
-            //courseLogic = new CourseLogic(mockCourseRespository.Object);
+            mockCourseRespository = new Mock<IRepository<Course>>();
+            mockCourseRespository.Setup(x => x.ReadAll()).Returns(courseInputData);
+            courseLogic = new CourseLogic(mockCourseRespository.Object);
 
             #endregion
 
@@ -79,6 +80,7 @@ namespace FO74EQ_HFT_2021222.Test
                 new GradeBook("3#OEB003#3#3#2#4"),
                 new GradeBook("4#OEB004#4#2#5#3"),
                 new GradeBook("5#OEB005#5#1#2#2"),
+                new GradeBook("5#OEB005#6#10#3#4"),
             }.AsQueryable();
 
 
@@ -124,6 +126,9 @@ namespace FO74EQ_HFT_2021222.Test
             teacherLogic = new TeacherLogic(mockTeacherRepository.Object);
 
             #endregion
+
+            gradeBookLogic2 = new GradeBookLogic(mockGradeBookRepository.Object, mockStudentRepository.Object);
+
         }
 
         [Test]
@@ -131,11 +136,56 @@ namespace FO74EQ_HFT_2021222.Test
         {
             Assert.That(() => teacherLogic.Create(new Teacher
             {
-                FirstName="A",
-                LastName="B",
-                Salary=10000,
-                TeacherId=1
+                FirstName = "A",
+                LastName = "B",
+                Salary = 10000,
+                TeacherId = 1
             }), Throws.Nothing);
+        }
+
+        [Test]
+        public void CreateStudentTest()
+        {
+            Assert.That(() => studentLogic.Create(new Student
+            {
+                NeptunId = "OEN001",
+                FirstName = "John",
+                LastName = "Ryan",
+                DateOfBirth = new DateTime(2005, 03, 01),
+            }), Throws.Exception);
+        }
+
+        [Test]
+        public void CreateGradeBookTest()
+        {
+            //GradeBookId, NeptunId, TeacherId, CourseId, Grade, Rating
+
+            Assert.That(() => gradeBookLogic.Create(new GradeBook
+            {
+                GradeBookId = 1,
+                NeptunId = "OEN002",
+                TeacherId = 1,
+                CourseId = 2,
+                Grade = 3,
+                Rating = 3
+
+            }), Throws.Nothing);
+        }
+
+        [Test]
+        public void GradeBookGetAllStudentOfSpecificTeacher()
+        {
+            //GradeBookId, NeptunId, TeacherId, CourseId, Grade, Rating
+
+
+            var result = gradeBookLogic2.GetAllStudentAverage();
+            
+            var expected = new List<KeyValuePair<string, double>>()
+            {
+                new KeyValuePair<string, double>("OEB005", 2.5)
+            };
+
+            Assert.That(expected, Is.EqualTo(expected));
         }
 
     }

@@ -10,12 +10,18 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
     public class GradeBookLogic : IGradeBook
     {
         IRepository<GradeBook> gradeRepo;
-        //TODO érdemes létrehozni?
-        //IRepository<Student> studRepo; //for nonCrud methods
+        //TODO minden osztálynak kell, hogy legyen 5 Non-crud metódusa, vagy összesen kell annyi?
+        IRepository<Student> studRepo; //for nonCrud methods
 
         public GradeBookLogic(IRepository<GradeBook> repository)
         {
             this.gradeRepo = repository;
+        }
+
+        public GradeBookLogic(IRepository<GradeBook> gradeRepo, IRepository<Student> studRepo)
+        {
+            this.gradeRepo = gradeRepo;
+            this.studRepo = studRepo;
         }
 
         #region CRUD
@@ -48,24 +54,24 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
 
         #region Non-Crud
 
-        public IEnumerable<Student> GetAverageOfSelectedStudent(int teacherId)
+        //listázza ki az össze tanuló átlagát
+        public IEnumerable<KeyValuePair<string, double>> GetAllStudentAverage()
         {
-            //TODO: hibakezelés
+            //TODO: hibakezelést érdemes megcsinálni?
             var gradeRead = gradeRepo.ReadAll();
-            List<Student> selectedStudents = new List<Student>();
+            var studRead = studRepo.ReadAll();
 
-            foreach (var grade in gradeRead)
-            {
-                if (teacherId == grade.TeacherId)
-                {
-                    foreach (var student in gradeRead)
-                    {
-                        selectedStudents.Add(student.Neptun);
-                    }
-                }
-            }
 
-            return selectedStudents;
+            return from x in gradeRead
+                   join y in studRead on x.NeptunId equals y.NeptunId
+                   group x by y.NeptunId
+                    into f
+                   select new KeyValuePair<string, double>
+                   (
+                       f.Key,
+                       f.Average(t => t.Grade)
+                   );
+            ;
         }
 
         #endregion    
