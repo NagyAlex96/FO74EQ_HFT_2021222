@@ -198,6 +198,17 @@ namespace FO74EQ_HFT_2021222.Test
         }
 
         [Test]
+        public void CreateClassRoomTest()
+        {
+            Assert.That(() => classRoomLogic.Create(new ClassRoom
+            {
+                ClassRoomId = 1,
+                Capacity = 100,
+
+            }), Throws.Nothing);
+        }
+
+        [Test]
         public void GetAverageGradeOfStudentsTest()
         {
             //GradeBookId, NeptunId, TeacherId, CourseId, Grade, Rating
