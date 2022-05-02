@@ -15,9 +15,9 @@ namespace FO74EQ_HFT_2021222.Endpoint.Controllers
     {
         IClassRoomLogic logic;
 
-        public ClassRoomController(IClassRoomLogic classRoom)
+        public ClassRoomController(IClassRoomLogic logic)
         {
-            this.logic = classRoom;
+            this.logic = logic;
         }
 
 		// GET: 

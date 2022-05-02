@@ -58,9 +58,11 @@ namespace FO74EQ_HFT_2021222.Models
         public virtual Course Requirement { get; set; }
 
         [NotMapped]
+        [JsonIgnore]
         public virtual ICollection<GradeBook> GradeBooks { get; set; }
 
         [NotMapped]
+        [JsonIgnore]
         public virtual ICollection<Course> InverseRequirement { get; set; }
     }
 

@@ -198,9 +198,12 @@ namespace FO74EQ_HFT_2021222.Client
                     throw new Exception("Unknown error in list");
                     break;
             }
+
             Console.ReadLine();
 
         }
+
+        //TODO
         static void Update(string entity)
         {
             switch (entity.ToLower())
@@ -373,7 +376,7 @@ namespace FO74EQ_HFT_2021222.Client
                 case "student":
                     Console.Write("Enter student's id to delete: ");
                     id = int.Parse(Console.ReadLine());
-                    rest.Delete(id, "studentbook");
+                    rest.Delete(id, "student");
                     break;
 
                 case "teacher":
@@ -387,18 +390,13 @@ namespace FO74EQ_HFT_2021222.Client
                     break;
             }
 
-            if (entity == "Actor")
-            {
-                Console.Write("Enter Actor's id to delete: ");
-                int id = int.Parse(Console.ReadLine());
-                rest.Delete(id, "actor");
-            }
         }
 
         static void Main(string[] args)
         {
             //Console.WriteLine("lefutott");
 
+            //TODO
             rest = new RestService("http://localhost:48036/", "GradeBook");
 
             var classRoomSubMenu = new ConsoleMenu(args, level: 1)

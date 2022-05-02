@@ -22,13 +22,11 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
         #region CRUD
         public void Create(Student item)
         {
-            int compareResult = DateTime.Compare(item.DateOfBirth, DateTime.Now.AddYears(youngestStudent < 18 ? -18 : youngestStudent));
-
             bool condition = item.NeptunId < 1
                 || item.FirstName == ""
                 || item.LastName == ""
                 || item.Email == ""
-                || compareResult < 1;
+                || item.DateOfBirth.Year > DateTime.Now.Year-youngestStudent;
             if (condition)
             {
                 throw new Exception("Hibás az adatbevitel vagy nem töltötte ki összes adatot");
