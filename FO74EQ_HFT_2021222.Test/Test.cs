@@ -134,9 +134,9 @@ namespace FO74EQ_HFT_2021222.Test
 
             #endregion
 
-            gradeBookLogic2 = new GradeBookLogic(mockGradeBookRepository.Object, mockStudentRepository.Object);
+            gradeBookLogic2 = new GradeBookLogic(mockGradeBookRepository.Object, mockStudentRepository.Object, null, null, null);
 
-            gradeBookLogic3 = new GradeBookLogic(mockGradeBookRepository.Object, mockTeacherRepository.Object);
+            gradeBookLogic3 = new GradeBookLogic(mockGradeBookRepository.Object, null, mockTeacherRepository.Object, null, null);
 
         }
 

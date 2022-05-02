@@ -38,7 +38,6 @@ namespace FO74EQ_HFT_2021222.Repository.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //TODO: cascade vagy ClientSetNUll
             modelBuilder.Entity<ClassRoom>(cRoom => cRoom
                 .HasMany(cRoom => cRoom.Courses)
                 .WithOne(Course => Course.ClassRoom)
@@ -61,7 +60,7 @@ namespace FO74EQ_HFT_2021222.Repository.Database
             modelBuilder.Entity<Course>(course => course
                 .HasOne(course => course.Requirement)
                 .WithMany(course => course.InverseRequirement)
-                .HasForeignKey(course => course.CourseId) //TODO: FK?
+                .HasForeignKey(course => course.CourseId)
                 .OnDelete(DeleteBehavior.ClientSetNull));
 
             modelBuilder.Entity<Course>(course => course

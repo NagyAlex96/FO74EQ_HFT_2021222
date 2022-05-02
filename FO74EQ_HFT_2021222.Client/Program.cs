@@ -154,7 +154,7 @@ namespace FO74EQ_HFT_2021222.Client
 
                     foreach (var item in classRoom)
                     {
-                        Console.WriteLine($"ClassRoom id: {item.ClassRoomId},\nCapacity: {item.Capacity}");
+                        Console.WriteLine($"ClassRoom id: {item.ClassRoomId}\nCapacity: {item.Capacity}\n");
                     }
                     break;
 
@@ -163,7 +163,7 @@ namespace FO74EQ_HFT_2021222.Client
 
                     foreach (var item in course)
                     {
-                        Console.WriteLine($"CourseId: {item.CourseId}\n CourseName: {item.Name}\nDateOfAnnounce: {item.DateOfAnnounced} \nCredit: {item.Credit}\nClassRoomId: {item.ClassRoomId}\nRequirementId: {item.RequirementId}");
+                        Console.WriteLine($"CourseId: {item.CourseId}\nCourseName: {item.Name}\nDateOfAnnounce: {item.DateOfAnnounced}\nCredit: {item.Credit}\nClassRoomId: {item.ClassRoomId}\nRequirementId: {item.RequirementId}\n");
                     }
                     break;
 
@@ -172,7 +172,7 @@ namespace FO74EQ_HFT_2021222.Client
 
                     foreach (var item in gradebook)
                     {
-                        Console.WriteLine($"GradeBookId: {item.GradeBookId}\n NeptunId: {item.NeptunId}\nTeacherId: {item.TeacherId} \nCourseId: {item.CourseId}\nGrade: {item.Grade}\nRating: {item.Rating}");
+                        Console.WriteLine($"GradeBookId: {item.GradeBookId}\nNeptunId: {item.NeptunId}\nTeacherId: {item.TeacherId}\nCourseId: {item.CourseId}\nGrade: {item.Grade}\nRating: {item.Rating}\n");
                     }
                     break;
 
@@ -181,7 +181,7 @@ namespace FO74EQ_HFT_2021222.Client
 
                     foreach (var item in student)
                     {
-                        Console.WriteLine($"NeptunId: {item.NeptunId}\nFirstname: {item.FirstName}\nLastname: {item.LastName} \nDateOfBirth: {item.DateOfBirth.ToShortDateString()}\nEmail: {item.Email}");
+                        Console.WriteLine($"NeptunId: {item.NeptunId}\nFirstname: {item.FirstName}\nLastname: {item.LastName}\nDateOfBirth: {item.DateOfBirth.ToShortDateString()}\nEmail: {item.Email}\n");
                     }
                     break;
 
@@ -190,7 +190,7 @@ namespace FO74EQ_HFT_2021222.Client
 
                     foreach (var item in teacher)
                     {
-                        Console.WriteLine($"TeacherId: {item.TeacherId}\nFirstname: {item.FirstName}\nLastname: {item.LastName} \nSalary: {item.Salary}");
+                        Console.WriteLine($"TeacherId: {item.TeacherId}\nFirstname: {item.FirstName}\nLastname: {item.LastName}\nSalary: {item.Salary}\n");
                     }
                     break;
                 
@@ -201,13 +201,12 @@ namespace FO74EQ_HFT_2021222.Client
             Console.ReadLine();
 
         }
-
         static void Update(string entity)
         {
             switch (entity.ToLower())
             {
                 case "student":
-                    Console.Write("Enter Student NeptunId to Update : ");
+                    Console.Write("Enter Student NeptunId to Update: ");
                     int neptunId = int.Parse(Console.ReadLine());
                     Student one = rest.Get<Student>(neptunId, "neptunId");
                     Console.Write($"New NeptunId [old: {one.NeptunId}]: ");
@@ -398,7 +397,7 @@ namespace FO74EQ_HFT_2021222.Client
 
         static void Main(string[] args)
         {
-            Console.WriteLine("lefutott");
+            //Console.WriteLine("lefutott");
 
             rest = new RestService("http://localhost:48036/", "GradeBook");
 

@@ -10,26 +10,19 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
     public class GradeBookLogic : IGradeBookLogic
     {
         IRepository<GradeBook> gradeRepo;
-        //TODO minden osztálynak kell, hogy legyen 5 Non-crud metódusa, vagy összesen kell 5?
 
-        IRepository<Student> studRepo; //for nonCrud methods
-        IRepository<Teacher> teachRepo; //for nonCrud methods
+        IRepository<Student> studRepo;
+        IRepository<Teacher> teachRepo;
+        IRepository<ClassRoom> classRepo;
+        IRepository<Course> courseRepo;
 
-        public GradeBookLogic(IRepository<GradeBook> repository)
+        public GradeBookLogic(IRepository<GradeBook> repository, IRepository<Student> studRepo = null, IRepository<Teacher> teachRepo = null, IRepository<ClassRoom> classRepo = null, IRepository<Course> courseRepo = null)
         {
             this.gradeRepo = repository;
-        }
-
-        public GradeBookLogic(IRepository<GradeBook> gradeRepo, IRepository<Student> studRepo)
-        {
-            this.gradeRepo = gradeRepo;
             this.studRepo = studRepo;
-        }
-
-        public GradeBookLogic(IRepository<GradeBook> gradeRepo, IRepository<Teacher> teachRepo)
-        {
-            this.gradeRepo = gradeRepo;
             this.teachRepo = teachRepo;
+            this.classRepo = classRepo;
+            this.courseRepo = courseRepo;
         }
 
         #region CRUD
@@ -64,7 +57,6 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
 
         public IEnumerable<KeyValuePair<string, double>> GetAllStudentAverageGrade()
         {
-            //TODO: hibakezelést érdemes megcsinálni?
             var gradeRead = gradeRepo.ReadAll();
             var studRead = studRepo.ReadAll();
 

@@ -8,7 +8,9 @@ namespace FO74EQ_HFT_2021222.Endpoint.Controllers
 {
 	[Route("[controller]")]
 	[ApiController]
+
 	//TODO a localhost nem látszódik, csak töltődik
+	//ClassRoom
 	public class ClassRoomController : Controller
     {
         IClassRoomLogic logic;

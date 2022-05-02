@@ -20,7 +20,6 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
         #region CRUD
         public void Create(ClassRoom item)
         {
-            //TODO mennyi exception szükséges
             if(item.ClassRoomId < 1)
             {
                 throw new Exception("ClassRoomId cannot be smaller than 1");
