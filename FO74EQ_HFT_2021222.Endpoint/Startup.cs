@@ -46,7 +46,7 @@ namespace FO74EQ_HFT_2021222.Endpoint
         {
             if (env.IsDevelopment())
             {
-                //TODO error
+                //TODO error, Nem kötelezõ!
                 app.UseDeveloperExceptionPage();
                 //app.UseSwagger();
                 //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MovieDbApp.Endpoint v1"));

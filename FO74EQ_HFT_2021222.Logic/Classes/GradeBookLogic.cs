@@ -28,6 +28,10 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
         #region CRUD
         public void Create(GradeBook item)
         {
+            if(item.NeptunId <= 0)
+            {
+                throw new Exception("NeptunId cannot be smaller than 1");
+            }
             this.gradeRepo.Create(item);
         }
 
