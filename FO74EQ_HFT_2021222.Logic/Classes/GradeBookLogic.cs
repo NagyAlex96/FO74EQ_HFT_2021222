@@ -82,7 +82,6 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
             var gradeRead = gradeRepo.ReadAll();
             var teacherRead = teachRepo.ReadAll();
 
-
             return from x in gradeRead
                    join y in teacherRead on x.TeacherId equals y.TeacherId
                    group x by y.TeacherId
@@ -92,8 +91,50 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
                        f.Key.ToString(),
                        f.Average(t => t.Rating)
                    );
-            ;
+            
         }
+
+        /// <summary>
+        /// Returns all names of the courses that this teacher is taking
+        /// </summary>
+        /// <param name="teacherId">Identification of teacher</param>
+        /// <returns></returns>
+        public IEnumerable<string> GetCourseByTeacher(int teacherId)
+        {
+            var gradeRead = gradeRepo.ReadAll();
+            var teacherRead = teachRepo.ReadAll();
+            var courseRead = courseRepo.ReadAll();
+
+            var returnedValue = from x in courseRead
+                         join y in gradeRead on x.CourseId equals y.CourseId
+                         join z in teacherRead on y.TeacherId equals z.TeacherId
+                         where z.TeacherId == teacherId && y.TeacherId == teacherId
+                         orderby x.Name ascending
+                         select x.Name;
+
+            return returnedValue;
+        }
+
+        //melyik kurzushoz, milyen átlaga van a diákoknak
+        public IEnumerable<KeyValuePair<string, double>> v()
+        {
+            var gradeRead = gradeRepo.ReadAll();
+            var courseRead = courseRepo.ReadAll();
+
+            var a = from x in gradeRead
+                    join y in courseRead on x.CourseId equals y.CourseId
+                    group x by y.Name
+                    into f
+                    select new KeyValuePair<string, double>
+                   (
+                      f.Key,
+                      f.Average(t=>t.Grade)
+
+                   );
+
+            return a;
+        }
+
 
 
         #endregion    

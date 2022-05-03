@@ -16,16 +16,15 @@ namespace FO74EQ_HFT_2021222.Test
     public class Test
     {
         ClassRoomLogic classRoomLogic;
-
         CourseLogic courseLogic;
-
-        GradeBookLogic gradeBookLogic;
-        GradeBookLogic gradeBookLogic2;
-        GradeBookLogic gradeBookLogic3;
-
         StudentLogic studentLogic;
-
         TeacherLogic teacherLogic;
+
+        GradeBookLogic gradeBookLogicBasicForCreate;
+        GradeBookLogic gradeBookLogicForNonCrud1;
+        GradeBookLogic gradeBookLogicForNonCrud2;
+        GradeBookLogic gradeBookLogicForNonCrud3;
+        GradeBookLogic gradeBookLogicForNonCrud4;
 
 
         Mock<IRepository<ClassRoom>> mockClassRoomRepository;
@@ -84,16 +83,16 @@ namespace FO74EQ_HFT_2021222.Test
                 new GradeBook("3#3#3#3#2#4"),
                 new GradeBook("4#4#4#2#5#3"),
                 new GradeBook("5#5#5#1#2#2"),
-                new GradeBook("5#5#6#10#3#4"),
+                new GradeBook("5#5#5#4#3#4"),
 
-                new GradeBook("5#1#6#12#3#2"),
-                new GradeBook("5#1#6#15#5#3"),
+                new GradeBook("5#1#5#3#3#2"),
+                new GradeBook("5#1#5#2#5#3"),
             }.AsQueryable();
 
 
             mockGradeBookRepository = new Mock<IRepository<GradeBook>>();
             mockGradeBookRepository.Setup(x => x.ReadAll()).Returns(gradeBookInputData);
-            gradeBookLogic = new GradeBookLogic(mockGradeBookRepository.Object);
+            gradeBookLogicBasicForCreate = new GradeBookLogic(mockGradeBookRepository.Object);
 
             #endregion
 
@@ -134,9 +133,13 @@ namespace FO74EQ_HFT_2021222.Test
 
             #endregion
 
-            gradeBookLogic2 = new GradeBookLogic(mockGradeBookRepository.Object, mockStudentRepository.Object, null, null, null);
+            gradeBookLogicForNonCrud1 = new GradeBookLogic(mockGradeBookRepository.Object, mockStudentRepository.Object, null, null, null);
 
-            gradeBookLogic3 = new GradeBookLogic(mockGradeBookRepository.Object, null, mockTeacherRepository.Object, null, null);
+            gradeBookLogicForNonCrud2 = new GradeBookLogic(mockGradeBookRepository.Object, null, mockTeacherRepository.Object, null, null);            
+            
+            gradeBookLogicForNonCrud3 = new GradeBookLogic(mockGradeBookRepository.Object, null, mockTeacherRepository.Object, null, mockCourseRespository.Object); 
+            
+            gradeBookLogicForNonCrud4 = new GradeBookLogic(mockGradeBookRepository.Object, null, null, null, mockCourseRespository.Object);
 
         }
 
@@ -170,7 +173,7 @@ namespace FO74EQ_HFT_2021222.Test
         {
             //GradeBookId, NeptunId, TeacherId, CourseId, Grade, Rating
 
-            Assert.That(() => gradeBookLogic.Create(new GradeBook
+            Assert.That(() => gradeBookLogicBasicForCreate.Create(new GradeBook
             {
                 GradeBookId = 1,
                 NeptunId = 2,
@@ -209,19 +212,16 @@ namespace FO74EQ_HFT_2021222.Test
         }
 
         [Test]
-        public void GetAverageGradeOfStudentsTest()
+        public void CheckAverageOfAverageGradeOfStudentsTest()
         {
             //GradeBookId, NeptunId, TeacherId, CourseId, Grade, Rating
 
+            //check average of average
+            var result = gradeBookLogicForNonCrud1.GetAllStudentAverageGrade().Average(t=>t.Value);
 
-            var result = gradeBookLogic2.GetAllStudentAverageGrade();
+            double expected = 3.3;
 
-            var expected = new List<KeyValuePair<string, double>>()
-            {
-                new KeyValuePair<string, double>("OEB005", 2.5)
-            };
-
-            Assert.That(expected, Is.EqualTo(expected));
+            Assert.That(expected, Is.EqualTo(result));
         }
 
         [Test]
@@ -229,15 +229,38 @@ namespace FO74EQ_HFT_2021222.Test
         {
             //GradeBookId, NeptunId, TeacherId, CourseId, Grade, Rating
 
+            double result = gradeBookLogicForNonCrud2.GetAverageRatingOfTeacher().Average(t=>t.Value);
 
-            var result = gradeBookLogic3.GetAverageRatingOfTeacher();
+            double expected = 3.15;
 
-            var expected = new List<KeyValuePair<string, double>>()
+            Assert.That(expected, Is.EqualTo(result));
+        }               
+       
+        [Test]
+        public void GetCoursesByTakingExactTeacherTest()
+        {
+            //GradeBookId, NeptunId, TeacherId, CourseId, Grade, Rating
+
+            var result = gradeBookLogicForNonCrud3.GetCourseByTeacher(5).Count();
+
+            int expectedCount = 4;
+
+            Assert.That(expectedCount, Is.EqualTo(result));
+        }        
+        
+        [Test]
+        public void GetAverageOfAllCourse()
+        {
+            //GradeBookId, NeptunId, TeacherId, CourseId, Grade, Rating
+
+            var result = gradeBookLogicForNonCrud4.v();
+
+            var expected = new KeyValuePair<string, double>
             {
-                new KeyValuePair<string, double>("1", 3)
+                
             };
 
-            Assert.That(expected, Is.EqualTo(expected));
+            Assert.That(expected, Is.EqualTo(result));
         }
 
         #endregion
