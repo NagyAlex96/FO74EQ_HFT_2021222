@@ -28,7 +28,7 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
         #region CRUD
         public void Create(GradeBook item)
         {
-            if(item.NeptunId <= 0)
+            if (item.NeptunId <= 0)
             {
                 throw new Exception("NeptunId cannot be smaller than 1");
             }
@@ -64,6 +64,10 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
             var gradeRead = gradeRepo.ReadAll();
             var studRead = studRepo.ReadAll();
 
+            if (gradeRead == null || studRead == null)
+            {
+                throw new NullReferenceException();
+            }
 
             return from x in gradeRead
                    join y in studRead on x.NeptunId equals y.NeptunId
@@ -82,6 +86,11 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
             var gradeRead = gradeRepo.ReadAll();
             var teacherRead = teachRepo.ReadAll();
 
+            if (gradeRead == null || teacherRead == null)
+            {
+                throw new NullReferenceException();
+            }
+
             return from x in gradeRead
                    join y in teacherRead on x.TeacherId equals y.TeacherId
                    group x by y.TeacherId
@@ -91,7 +100,7 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
                        f.Key.ToString(),
                        f.Average(t => t.Rating)
                    );
-            
+
         }
 
         /// <summary>
@@ -105,21 +114,35 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
             var teacherRead = teachRepo.ReadAll();
             var courseRead = courseRepo.ReadAll();
 
+
+            if (gradeRead == null || courseRead == null || teacherRead == null)
+            {
+                throw new NullReferenceException();
+            }
+
             var returnedValue = from x in courseRead
-                         join y in gradeRead on x.CourseId equals y.CourseId
-                         join z in teacherRead on y.TeacherId equals z.TeacherId
-                         where z.TeacherId == teacherId && y.TeacherId == teacherId
-                         orderby x.Name ascending
-                         select x.Name;
+                                join y in gradeRead on x.CourseId equals y.CourseId
+                                join z in teacherRead on y.TeacherId equals z.TeacherId
+                                where z.TeacherId == teacherId && y.TeacherId == teacherId
+                                orderby x.Name ascending
+                                select x.Name;
 
             return returnedValue;
         }
 
-        //melyik kurzushoz, milyen átlaga van a diákoknak
-        public IEnumerable<KeyValuePair<string, double>> v()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<KeyValuePair<string, double>> GetAllCourseAverageGrade()
         {
             var gradeRead = gradeRepo.ReadAll();
             var courseRead = courseRepo.ReadAll();
+
+            if (gradeRead == null || courseRead == null)
+            {
+                throw new NullReferenceException();
+            }
 
             var a = from x in gradeRead
                     join y in courseRead on x.CourseId equals y.CourseId
@@ -128,7 +151,7 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
                     select new KeyValuePair<string, double>
                    (
                       f.Key,
-                      f.Average(t=>t.Grade)
+                      f.Average(t => t.Grade)
 
                    );
 

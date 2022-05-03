@@ -249,19 +249,24 @@ namespace FO74EQ_HFT_2021222.Test
         }        
         
         [Test]
-        public void GetAverageOfAllCourse()
+        public void GetAverageOfAllCourseTest()
         {
             //GradeBookId, NeptunId, TeacherId, CourseId, Grade, Rating
 
-            var result = gradeBookLogicForNonCrud4.v();
+            var result = gradeBookLogicForNonCrud4.GetAllCourseAverageGrade();
 
-            var expected = new KeyValuePair<string, double>
+            var expected = new List<KeyValuePair<string, double>>()
             {
-                
+                new KeyValuePair<string, double>("Subject005", 4),
+                new KeyValuePair<string, double>("Subject004", 3),
+                new KeyValuePair<string, double>("Subject003", 2.5),
+                new KeyValuePair<string, double>("Subject002", 5),
+                new KeyValuePair<string, double>("Subject001", 2),
             };
 
             Assert.That(expected, Is.EqualTo(result));
-        }
+        }        
+        
 
         #endregion
     }
