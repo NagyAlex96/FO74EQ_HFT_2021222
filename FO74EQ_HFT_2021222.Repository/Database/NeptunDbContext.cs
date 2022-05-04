@@ -31,8 +31,8 @@ namespace FO74EQ_HFT_2021222.Repository.Database
 
                 builder
                    //.UseSqlServer(conn)
-                   .UseInMemoryDatabase("Neptun")
-                   .UseLazyLoadingProxies();
+                   .UseLazyLoadingProxies()
+                   .UseInMemoryDatabase("Neptun");
             }
         }
 
