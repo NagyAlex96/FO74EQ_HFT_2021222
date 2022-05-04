@@ -203,7 +203,7 @@ namespace FO74EQ_HFT_2021222.Client
                         Console.WriteLine($"TeacherId: {item.TeacherId}\nFirstname: {item.FirstName}\nLastname: {item.LastName}\nSalary: {item.Salary}\n");
                     }
                     break;
-                
+
                 default:
                     throw new Exception("Unknown error in list");
                     break;
@@ -245,103 +245,98 @@ namespace FO74EQ_HFT_2021222.Client
                     break;
 
                 case "teacher":
-                    Console.Write("Enter TeacherId NeptunId: ");
+
+                    Console.Write("Enter Teacher TeacherId to Update: ");
                     int teacherId = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine("\nEnter Teacher First Name: ");
-                    string firstNameTeacher = Console.ReadLine();
+                    Teacher teach = rest.Get<Teacher>(teacherId, "teacher");
+                    Console.Write($"New TeacherId [old: {teach.TeacherId}]: ");
+                    teach.TeacherId = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine("\nEnter Teacher Last Name: ");
-                    string lastNameTeacher = Console.ReadLine();
+                    Console.WriteLine("\nEnter Teacher First Name to Update: ");
+                    Console.Write($"New first name [old: {teach.FirstName}]: ");
+                    teach.FirstName = Console.ReadLine();
 
-                    Console.WriteLine("\nEnter Teacher salary: ");
-                    int salary = int.Parse(Console.ReadLine());
+                    Console.WriteLine("\nEnter Teacher Last Name to Update: ");
+                    Console.Write($"New last name [old: {teach.LastName}]: ");
+                    teach.LastName = Console.ReadLine();
 
-                    rest.Post(new Teacher()
-                    {
-                        TeacherId = teacherId,
-                        FirstName = firstNameTeacher,
-                        LastName = lastNameTeacher,
-                        Salary = salary,
-                    }, "teacher");
+                    Console.WriteLine("\nEnter Teacher salary to Update: ");
+                    Console.Write($"New last name [old: {teach.Salary}]: ");
+                    teach.Salary = int.Parse(Console.ReadLine());
+
+                    rest.Put(teach, "teacher");
                     break;
 
                 case "gradebook":
-                    Console.Write("Enter GradeBook Id: ");
+                    Console.Write("Enter GradeBook GradeBookId to Update: ");
                     int gradeBookId = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine("\nEnter GradeBook NeptunId: ");
-                    int neptunIdGrade = int.Parse(Console.ReadLine());
+                    GradeBook grade = rest.Get<GradeBook>(gradeBookId, "gradebook");
+                    Console.Write($"New GradeBookId [old: {grade.GradeBookId}]: ");
+                    grade.GradeBookId = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine("\nEnter GradeBook TeacherId: ");
-                    int teacherIdGrade = int.Parse(Console.ReadLine());
+                    Console.WriteLine("\nEnter GradeBook NeptunId to Update: ");
+                    Console.Write($"New NeptunId [old: {grade.NeptunId}]: ");
+                    grade.NeptunId = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine("\nEnter GradeBook teacherId: ");
-                    int courseIdGrade = int.Parse(Console.ReadLine());
+                    Console.WriteLine("\nEnter GradeBook CourseId to Update: ");
+                    Console.Write($"New CourseId [old: {grade.CourseId}]: ");
+                    grade.CourseId = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine("\nEnter GradeBook grade: ");
-                    int grade = int.Parse(Console.ReadLine());
+                    Console.WriteLine("\nEnter GradeBook grade to Update: ");
+                    Console.Write($"New last name [old: {grade.Grade}]: ");
+                    grade.Grade = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine("\nEnter GradeBook rating: ");
-                    int rating = int.Parse(Console.ReadLine());
+                    Console.WriteLine("\nEnter GradeBook rating to Update: ");
+                    Console.Write($"New last name [old: {grade.Rating}]: ");
+                    grade.Rating = int.Parse(Console.ReadLine());
 
-                    rest.Post(new GradeBook()
-                    {
-                        GradeBookId = gradeBookId,
-                        NeptunId = neptunIdGrade,
-                        TeacherId = teacherIdGrade,
-                        CourseId = courseIdGrade,
-                        Grade = grade,
-                        Rating = rating,
-
-                    }, "gradeBook");
+                    rest.Put(grade, "gradebook");
                     break;
 
                 case "course":
-                    Console.Write("Enter Course Id: ");
+
+                    Console.Write("Enter Course CourseId to Update: ");
                     int courseId = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine("\nEnter Course name: ");
-                    string name = Console.ReadLine();
+                    Course course = rest.Get<Course>(courseId, "course");
+                    Console.Write($"New CourseId [old: {course.CourseId}]: ");
+                    course.CourseId = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine("\nEnter Course date of announce: ");
-                    DateTime dateOfAnnounce = DateTime.Parse(Console.ReadLine());
+                    Console.WriteLine("\nEnter Course Name to Update: ");
+                    Console.Write($"New Name [old: {course.Name}]: ");
+                    course.Name = Console.ReadLine();
 
-                    Console.WriteLine("\nEnter Course credit: ");
-                    int credit = int.Parse(Console.ReadLine());
+                    Console.WriteLine("\nEnter Course DateOfAnnounce to Update: ");
+                    Console.Write($"New DateOfAnnounce [old: {course.DateOfAnnounced}]: ");
+                    course.DateOfAnnounced = DateTime.Parse(Console.ReadLine());
 
-                    Console.WriteLine("\nEnter Course class room Id: ");
-                    int classRoomIdCourse = int.Parse(Console.ReadLine());
+                    Console.WriteLine("\nEnter Course Creadit to Update: ");
+                    Console.Write($"New Credit [old: {course.Credit}]: ");
+                    course.Credit = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine("\nEnter Course requirementId: ");
-                    int requireMentID = int.Parse(Console.ReadLine());
+                    Console.WriteLine("\nEnter Course RequirementId to Update: ");
+                    Console.Write($"New RequirementID [old: {course.RequirementId}]: ");
+                    course.RequirementId = int.Parse(Console.ReadLine());
 
-                    rest.Post(new Course()
-                    {
-                        CourseId = courseId,
-                        Name = name,
-                        DateOfAnnounced = dateOfAnnounce,
-                        Credit = credit,
-                        ClassRoomId = classRoomIdCourse,
-                        RequirementId = requireMentID,
-
-                    }, "Course");
+                    rest.Put(course, "course");
                     break;
 
                 case "classroom":
-                    Console.Write("Enter class room Id: ");
+
+                    Console.Write("Enter ClassRoom ClassRoomId to Update: ");
                     int classRoomId = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine("\nEnter class room capacity: ");
-                    int capacity = int.Parse(Console.ReadLine());
+                    ClassRoom classRoom = rest.Get<ClassRoom>(classRoomId, "course");
+                    Console.Write($"New CourseId [old: {classRoom.ClassRoomId}]: ");
+                    classRoom.ClassRoomId = int.Parse(Console.ReadLine());
 
+                    Console.WriteLine("\nEnter ClassRoom Capacity to Update: ");
+                    Console.Write($"New Capacity [old: {classRoom.Capacity}]: ");
+                    classRoom.Capacity = int.Parse(Console.ReadLine());
 
-                    rest.Post(new ClassRoom()
-                    {
-                        ClassRoomId = classRoomId,
-                        Capacity = capacity,
-
-                    }, "classRoom");
+                    rest.Put(classRoom, "classroom");
                     break;
 
                 default:
