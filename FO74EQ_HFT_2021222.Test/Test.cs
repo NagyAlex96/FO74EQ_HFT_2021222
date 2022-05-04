@@ -267,6 +267,20 @@ namespace FO74EQ_HFT_2021222.Test
             Assert.That(expected, Is.EqualTo(result));
         }        
         
+        [Test]
+        public void GetAverageGradeByDateOfBirthTest()
+        {
+            var result = gradeBookLogicForNonCrud1.GetAverageGradeByDateOfBirth();
+
+            var expected = new List<KeyValuePair<int, double>>()
+            {
+                new KeyValuePair<int, double>(1999, 3.5),
+                new KeyValuePair<int, double>(2000, 4),          
+                new KeyValuePair<int, double>(1998, 2.5),
+            };
+
+            Assert.That(expected, Is.EqualTo(result));
+        }
 
         #endregion
     }

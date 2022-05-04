@@ -159,6 +159,29 @@ namespace FO74EQ_HFT_2021222.Logic.Classes
         }
 
 
+        //születési évekre leosztva, milyen átlagot értek el a hallgatók
+        public IEnumerable<KeyValuePair<int, double>> GetAverageGradeByDateOfBirth()
+        {
+            var gradeRead = gradeRepo.ReadAll();
+            var studentRead = studRepo.ReadAll();
+
+            if (gradeRead == null || studentRead == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            return from x in gradeRead
+                   join y in studentRead on x.NeptunId equals y.NeptunId
+                   group x by y.DateOfBirth.Year
+                    into f
+                   select new KeyValuePair<int, double>
+                  (
+                     f.Key,
+                     f.Average(t => t.Grade)
+                  );
+
+        }
+
 
         #endregion    
     }

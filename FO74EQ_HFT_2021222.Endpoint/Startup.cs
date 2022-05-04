@@ -36,17 +36,14 @@ namespace FO74EQ_HFT_2021222.Endpoint
             services.AddTransient<ITeacherLogic, TeacherLogic>();
 
             services.AddControllers();
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-
-        //8.fejezet 10.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
-                //TODO error, Nem kötelezõ!
                 app.UseDeveloperExceptionPage();
                 //app.UseSwagger();
                 //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MovieDbApp.Endpoint v1"));
