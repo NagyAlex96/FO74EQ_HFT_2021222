@@ -262,7 +262,7 @@ namespace FO74EQ_HFT_2021222.Client
                     teach.LastName = Console.ReadLine();
 
                     Console.WriteLine("\nEnter Teacher salary to Update: ");
-                    Console.Write($"New last name [old: {teach.Salary}]: ");
+                    Console.Write($"New Salary [old: {teach.Salary}]: ");
                     teach.Salary = int.Parse(Console.ReadLine());
 
                     rest.Put(teach, "teacher");
@@ -326,10 +326,10 @@ namespace FO74EQ_HFT_2021222.Client
                 case "classroom":
 
                     Console.Write("Enter ClassRoom ClassRoomId to Update: ");
-                    int classRoomId = int.Parse(Console.ReadLine());
+                    int RoomId = int.Parse(Console.ReadLine());
 
-                    ClassRoom classRoom = rest.Get<ClassRoom>(classRoomId, "course");
-                    Console.Write($"New CourseId [old: {classRoom.ClassRoomId}]: ");
+                    ClassRoom classRoom = rest.Get<ClassRoom>(RoomId, "classroom");
+                    Console.Write($"New ClassRoomId [old: {classRoom.ClassRoomId}]: ");
                     classRoom.ClassRoomId = int.Parse(Console.ReadLine());
 
                     Console.WriteLine("\nEnter ClassRoom Capacity to Update: ");
