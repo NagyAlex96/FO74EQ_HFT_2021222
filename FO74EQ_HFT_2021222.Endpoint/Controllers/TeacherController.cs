@@ -39,7 +39,7 @@ namespace FO74EQ_HFT_2021222.Endpoint.Controllers
 		}
 
 		// PUT:
-		[HttpPut("{id}")]
+		[HttpPut]
 		public void Put([FromBody] Teacher value)
 		{
 			logic.Update(value);
