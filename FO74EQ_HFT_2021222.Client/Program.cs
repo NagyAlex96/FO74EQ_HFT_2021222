@@ -245,16 +245,103 @@ namespace FO74EQ_HFT_2021222.Client
                     break;
 
                 case "teacher":
+                    Console.Write("Enter TeacherId NeptunId: ");
+                    int teacherId = int.Parse(Console.ReadLine());
 
+                    Console.WriteLine("\nEnter Teacher First Name: ");
+                    string firstNameTeacher = Console.ReadLine();
+
+                    Console.WriteLine("\nEnter Teacher Last Name: ");
+                    string lastNameTeacher = Console.ReadLine();
+
+                    Console.WriteLine("\nEnter Teacher salary: ");
+                    int salary = int.Parse(Console.ReadLine());
+
+                    rest.Post(new Teacher()
+                    {
+                        TeacherId = teacherId,
+                        FirstName = firstNameTeacher,
+                        LastName = lastNameTeacher,
+                        Salary = salary,
+                    }, "teacher");
                     break;
 
                 case "gradebook":
+                    Console.Write("Enter GradeBook Id: ");
+                    int gradeBookId = int.Parse(Console.ReadLine());
+
+                    Console.WriteLine("\nEnter GradeBook NeptunId: ");
+                    int neptunIdGrade = int.Parse(Console.ReadLine());
+
+                    Console.WriteLine("\nEnter GradeBook TeacherId: ");
+                    int teacherIdGrade = int.Parse(Console.ReadLine());
+
+                    Console.WriteLine("\nEnter GradeBook teacherId: ");
+                    int courseIdGrade = int.Parse(Console.ReadLine());
+
+                    Console.WriteLine("\nEnter GradeBook grade: ");
+                    int grade = int.Parse(Console.ReadLine());
+
+                    Console.WriteLine("\nEnter GradeBook rating: ");
+                    int rating = int.Parse(Console.ReadLine());
+
+                    rest.Post(new GradeBook()
+                    {
+                        GradeBookId = gradeBookId,
+                        NeptunId = neptunIdGrade,
+                        TeacherId = teacherIdGrade,
+                        CourseId = courseIdGrade,
+                        Grade = grade,
+                        Rating = rating,
+
+                    }, "gradeBook");
                     break;
 
                 case "course":
+                    Console.Write("Enter Course Id: ");
+                    int courseId = int.Parse(Console.ReadLine());
+
+                    Console.WriteLine("\nEnter Course name: ");
+                    string name = Console.ReadLine();
+
+                    Console.WriteLine("\nEnter Course date of announce: ");
+                    DateTime dateOfAnnounce = DateTime.Parse(Console.ReadLine());
+
+                    Console.WriteLine("\nEnter Course credit: ");
+                    int credit = int.Parse(Console.ReadLine());
+
+                    Console.WriteLine("\nEnter Course class room Id: ");
+                    int classRoomIdCourse = int.Parse(Console.ReadLine());
+
+                    Console.WriteLine("\nEnter Course requirementId: ");
+                    int requireMentID = int.Parse(Console.ReadLine());
+
+                    rest.Post(new Course()
+                    {
+                        CourseId = courseId,
+                        Name = name,
+                        DateOfAnnounced = dateOfAnnounce,
+                        Credit = credit,
+                        ClassRoomId = classRoomIdCourse,
+                        RequirementId = requireMentID,
+
+                    }, "Course");
                     break;
 
                 case "classroom":
+                    Console.Write("Enter class room Id: ");
+                    int classRoomId = int.Parse(Console.ReadLine());
+
+                    Console.WriteLine("\nEnter class room capacity: ");
+                    int capacity = int.Parse(Console.ReadLine());
+
+
+                    rest.Post(new ClassRoom()
+                    {
+                        ClassRoomId = classRoomId,
+                        Capacity = capacity,
+
+                    }, "classRoom");
                     break;
 
                 default:
