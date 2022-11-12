@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FO74EQ_HFT_2021222.WPFClient.View
+namespace FO74EQ_HFT_2021222.WPFClient.ViewModel
 {
-    internal class MainWIndowViewModel
+    public class MainWindowVM
     {
     }
 }
