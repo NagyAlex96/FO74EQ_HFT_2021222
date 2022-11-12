@@ -43,14 +43,34 @@ namespace FO74EQ_HFT_2021222.WPFClient.ViewModel
 
         private void CreateStudent()
         {
-            Students.Add(new Student()
+            bool exist = Students.Where(x => x.NeptunId == selectedStudent.NeptunId).Any();
+
+            if (!exist)
             {
-                FirstName = selectedStudent.FirstName,
-                LastName = selectedStudent.LastName,
-                DateOfBirth = selectedStudent.DateOfBirth,
-                Email = selectedStudent.Email,
-                NeptunId = selectedStudent.NeptunId
-            });
+                Students.Add(new Student()
+                {
+                    FirstName = selectedStudent.FirstName,
+                    LastName = selectedStudent.LastName,
+                    DateOfBirth = selectedStudent.DateOfBirth,
+                    Email = selectedStudent.Email,
+                    NeptunId = selectedStudent.NeptunId
+                });
+            }
+            else
+            {
+                
+                if(MessageBox.Show("Ilyen neptun kóddal már létezik Student.\nIGEN, neptunId max+1 értéket vesz fel.\nNEM: szerkesztés", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    Students.Add(new Student()
+                    {
+                        FirstName = selectedStudent.FirstName,
+                        LastName = selectedStudent.LastName,
+                        DateOfBirth = selectedStudent.DateOfBirth,
+                        Email = selectedStudent.Email,
+                        NeptunId = Students.Count() + 1
+                    }) ;
+                }
+            }
         }
 
         public IRelayCommand UpdateStudentCommand { get; private set; }
@@ -82,9 +102,9 @@ namespace FO74EQ_HFT_2021222.WPFClient.ViewModel
         public Student SelectedStudent
         {
             get { return selectedStudent; }
-            set 
+            set
             {
-                if(value != null)
+                if (value != null)
                 {
                     selectedStudent = new Student()
                     {
