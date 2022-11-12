@@ -7,8 +7,105 @@
         
         xmlns:VM="clr-namespace:FO74EQ_HFT_2021222.WPFClient.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="768" Width="1024">
 
+    <Window.DataContext>
+        <VM:MainWindowsVM/>
+    </Window.DataContext>
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style TargetType="TextBox">
+                <Setter Property="Width" Value="366"/>
+                <Setter Property="Height" Value="38"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="1.2"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Times New Roman"/>
+            </Style>            
+            
+            <Style TargetType="Label">
+                <Setter Property="Width" Value="366"/>
+                <Setter Property="Height" Value="38"/>
+                <Setter Property="Background" Value="LightBlue"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+
+            <Style TargetType="Label" x:Key="emptyLabel"/>
+
+            <Style TargetType="Button">
+                <Setter Property="Height" Value="45"/>
+                <Setter Property="Width" Value="366"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+        
+        
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ListBox ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding FirstName}" Style="{StaticResource emptyLabel}"/>
+                        <Label Content="{Binding LastName}" Style="{StaticResource emptyLabel}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Canvas Grid.Column="1">
+
+            <StackPanel Canvas.Left="73" Canvas.Top="69">
+                <Label
+                    Content="NeptunID"/>
+                <TextBox
+                    Text="{Binding SelectedStudent.NeptunId}"/>
+
+                <Label
+                    Content="Firstname"/>
+                <TextBox
+                    Text="{Binding SelectedStudent.FirstName}"/>
+
+                <Label
+                    Content="Lastname"/>
+                <TextBox
+                    Text="{Binding SelectedStudent.LastName}"/>
+
+                <Label
+                    Content="Date of Birth"/>
+                <DatePicker
+                    SelectedDate="{Binding SelectedStudent.DateOfBirth}"
+                    DisplayDateStart="1950.1.1"
+                    Width="366" Height="38"/>
+
+                <Label
+                    Content="Email"/>
+                
+                <TextBox
+                    Text="{Binding SelectedStudent.Email}"/>
+            </StackPanel>
+
+
+            <Button
+                Content="Create Student" Command="{Binding CreateStudentCommand}"
+                Canvas.Left="73" Canvas.Top="534"/>
+
+            <Button 
+                Content="Update Student" Command="{Binding UpdateStudentCommand}"
+                Canvas.Left="73" Canvas.Top="599"/>
+
+            <Button
+                Content="Delete Student" Command="{Binding DeleteStudentCommand}"
+                Canvas.Left="73" Canvas.Top="659"/>
+
+
+        </Canvas>
     </Grid>
 </Window>
