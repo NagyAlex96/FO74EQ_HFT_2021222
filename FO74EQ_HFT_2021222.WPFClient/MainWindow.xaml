@@ -7,12 +7,19 @@
         
         xmlns:viewModel="clr-namespace:FO74EQ_HFT_2021222.WPFClient.ViewModel"
         mc:Ignorable="d"
-        Title="GradeBook Editor" Height="450" Width="800">
+        Title="Student Editor" Height="450" Width="800">
 
     <Window.DataContext>
         <viewModel:MainWindowVM/>
     </Window.DataContext>
+    
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
+
+        
     </Grid>
 </Window>
