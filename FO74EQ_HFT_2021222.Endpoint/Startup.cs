@@ -29,6 +29,8 @@ namespace FO74EQ_HFT_2021222.Endpoint
             services.AddTransient<IRepository<Student>, StudentRepository>();
             services.AddTransient<IRepository<Teacher>, TeacherRepository>();
 
+            services.AddSignalR();
+
             services.AddTransient<IClassRoomLogic, ClassRoomLogic>();
             services.AddTransient<ICourseLogic, CourseLogic>();
             services.AddTransient<IGradeBookLogic, GradeBookLogic>();
@@ -68,6 +70,7 @@ namespace FO74EQ_HFT_2021222.Endpoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/hub");
             });
 
         }
