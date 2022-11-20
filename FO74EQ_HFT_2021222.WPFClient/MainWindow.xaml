@@ -12,7 +12,7 @@
     <Window.DataContext>
         <VM:MainWindowsVM/>
     </Window.DataContext>
-    
+
     <Window.Resources>
         <ResourceDictionary>
             <Style TargetType="TextBox">
@@ -24,8 +24,8 @@
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 <Setter Property="FontSize" Value="16"/>
                 <Setter Property="FontFamily" Value="Times New Roman"/>
-            </Style>            
-            
+            </Style>
+
             <Style TargetType="Label">
                 <Setter Property="Width" Value="366"/>
                 <Setter Property="Height" Value="38"/>
@@ -41,71 +41,245 @@
             </Style>
         </ResourceDictionary>
     </Window.Resources>
-        
-        
+
+    <!--{Binding Path=options[0].Visibility}-->
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
-        <ListBox ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="{Binding FirstName}" Style="{StaticResource emptyLabel}"/>
-                        <Label Content="{Binding LastName}" Style="{StaticResource emptyLabel}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <Grid x:Name="studentGrid" Visibility="{Binding Path=options[0].Visibility}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <Canvas Grid.Column="1">
+            <ListBox ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}" Grid.Column="0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{Binding FirstName}" Style="{StaticResource emptyLabel}"/>
+                            <Label Content="{Binding LastName}" Style="{StaticResource emptyLabel}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
-            <StackPanel Canvas.Left="73" Canvas.Top="69">
-                <Label
+            <Canvas Grid.Column="1">
+
+                <StackPanel Canvas.Left="73" Canvas.Top="24" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Label
                     Content="NeptunID"/>
-                <TextBox
+                    <TextBox
                     Text="{Binding SelectedStudent.NeptunId}"/>
 
-                <Label
+                    <Label
                     Content="Firstname"/>
-                <TextBox
+                    <TextBox
                     Text="{Binding SelectedStudent.FirstName}"/>
 
-                <Label
+                    <Label
                     Content="Lastname"/>
-                <TextBox
+                    <TextBox
                     Text="{Binding SelectedStudent.LastName}"/>
 
-                <Label
+                    <Label
                     Content="Date of Birth"/>
-                <DatePicker
+                    <DatePicker
                     SelectedDate="{Binding SelectedStudent.DateOfBirth}"
                     DisplayDateStart="1950.1.1"
                     Width="366" Height="38"/>
 
-                <Label
+                    <Label
                     Content="Email"/>
-                
-                <TextBox
+
+                    <TextBox
                     Text="{Binding SelectedStudent.Email}"/>
-            </StackPanel>
 
+                    <ComboBox
+                    ItemsSource="{Binding options}" FontSize="12"
+                SelectedItem="{Binding SelectedOption}" HorizontalAlignment="Center" Width="364" Height="32">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding OptionName}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
 
-            <Button
+                    </ComboBox>
+                </StackPanel>
+
+                <Button
                 Content="Create Student" Command="{Binding CreateStudentCommand}"
                 Canvas.Left="73" Canvas.Top="534"/>
 
-            <Button 
+                <Button 
                 Content="Update Student" Command="{Binding UpdateStudentCommand}"
                 Canvas.Left="73" Canvas.Top="599"/>
 
-            <Button
+                <Button
                 Content="Delete Student" Command="{Binding DeleteStudentCommand}"
                 Canvas.Left="73" Canvas.Top="659"/>
 
 
-        </Canvas>
+            </Canvas>
+        </Grid>
+
+        <Grid x:Name="GradeBookGrid" Visibility="{Binding Path=options[1].Visibility}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ListBox ItemsSource="{Binding GradeBooks}" SelectedItem="{Binding SelectedGradeBook}" Grid.Column="0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{Binding NeptunId}" Style="{StaticResource emptyLabel}"/>
+                            <Label Content="{Binding Neptun.FirstName}" Style="{StaticResource emptyLabel}"/>
+                            <Label Content="{Binding Neptun.LastName}" Style="{StaticResource emptyLabel}"/>
+                            <Label Content="{Binding Grade}" Style="{StaticResource emptyLabel}"/>
+                            <Label Content="{Binding TeacherId}" Style="{StaticResource emptyLabel}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <Canvas Grid.Column="1">
+
+                <StackPanel Canvas.Left="73" Canvas.Top="24" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Label
+                    Content="NeptunID"/>
+                    <TextBox
+                    Text="{Binding SelectedGradeBook.NeptunId}"/>
+
+                    <Label
+                    Content="Grade"/>
+                    <TextBox
+                    Text="{Binding SelectedGradeBook.Grade}"/>
+
+                    <Label
+                    Content="GradeBookId"/>
+                    <TextBox
+                    Text="{Binding SelectedGradeBook.GradeBookId}"/>
+
+                    <Label
+                    Content="CourseId"/>
+                    <TextBox
+                    Text="{Binding SelectedGradeBook.CourseId}"/>
+
+                    <Label
+                    Content="TeacherId"/>
+                    <TextBox
+                    Text="{Binding SelectedGradeBook.TeacherId}"/>
+
+                    <Label
+                    Content="Rating"/>
+                    <TextBox
+                    Text="{Binding SelectedGradeBook.Rating}"/>
+
+                    <ComboBox
+                    ItemsSource="{Binding options}" FontSize="12"
+                SelectedItem="{Binding SelectedOption}" HorizontalAlignment="Center" Width="364" Height="32">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding OptionName}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+
+                    </ComboBox>
+
+                </StackPanel>
+
+
+
+                <Button
+                Content="Create Grade" Command="{Binding CreateGradeBookCommand}"
+                Canvas.Left="73" Canvas.Top="534"/>
+
+                <Button 
+                Content="Update Grade" Command="{Binding UpdateGradeBookCommand}"
+                Canvas.Left="73" Canvas.Top="599"/>
+
+                <Button
+                Content="Delete Grade" Command="{Binding DeleteGradeBookCommand}"
+                Canvas.Left="73" Canvas.Top="659"/>
+
+
+            </Canvas>
+        </Grid>
+
+        <Grid x:Name="TeacherGrid" Visibility="{Binding Path=options[2].Visibility}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ListBox ItemsSource="{Binding Teachers}" SelectedItem="{Binding SelectedTeacher}" Grid.Column="0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{Binding TeacherId}" Style="{StaticResource emptyLabel}"/>
+                            <Label Content="{Binding FirstName}" Style="{StaticResource emptyLabel}"/>
+                            <Label Content="{Binding LastName}" Style="{StaticResource emptyLabel}"/>
+                            <Label Content="{Binding Salary}" Style="{StaticResource emptyLabel}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <Canvas Grid.Column="1">
+
+                <StackPanel Canvas.Left="73" Canvas.Top="24" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Label
+                    Content="TeacherId"/>
+                    <TextBox
+                    Text="{Binding SelectedTeacher.TeacherId}"/>
+
+                    <Label
+                    Content="First name"/>
+                    <TextBox
+                    Text="{Binding SelectedTeacher.FirstName}"/>
+
+                    <Label
+                    Content="Last name"/>
+                    <TextBox
+                    Text="{Binding SelectedTeacher.LastName}"/>
+
+                    <Label
+                    Content="Salary"/>
+                    <TextBox
+                    Text="{Binding SelectedTeacher.Salary}"/>
+
+                    <ComboBox
+                    ItemsSource="{Binding options}" FontSize="12"
+                SelectedItem="{Binding SelectedOption}" HorizontalAlignment="Center" Width="364" Height="32">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding OptionName}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+
+                    </ComboBox>
+                </StackPanel>
+
+
+
+                <Button
+                Content="Create Teacher" Command="{Binding CreateTeacherCommand}"
+                Canvas.Left="73" Canvas.Top="534"/>
+
+                <Button 
+                Content="Update Teacher" Command="{Binding UpdateTeacherCommand}"
+                Canvas.Left="73" Canvas.Top="599"/>
+
+                <Button
+                Content="Delete Teacher" Command="{Binding DeleteTeacherCommand}"
+                Canvas.Left="73" Canvas.Top="659"/>
+
+
+            </Canvas>
+        </Grid>
+
+
     </Grid>
+
+
+
 </Window>
