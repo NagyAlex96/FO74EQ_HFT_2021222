@@ -35,6 +35,10 @@
 
             <Style TargetType="Label" x:Key="emptyLabel"/>
 
+            <Style TargetType="Label" x:Key="boldLabel">
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
+
             <Style TargetType="Button">
                 <Setter Property="Height" Value="45"/>
                 <Setter Property="Width" Value="366"/>
@@ -55,6 +59,8 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
+                            <Label Content="NeptunID: " Style="{StaticResource boldLabel}"/>
+                            <Label Content="{Binding NeptunId}" Style="{StaticResource emptyLabel}"/>
                             <Label Content="{Binding FirstName}" Style="{StaticResource emptyLabel}"/>
                             <Label Content="{Binding LastName}" Style="{StaticResource emptyLabel}"/>
                         </StackPanel>
@@ -131,10 +137,11 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
+                            <Label Content="NeptunID: " Style="{StaticResource boldLabel}"/>
                             <Label Content="{Binding NeptunId}" Style="{StaticResource emptyLabel}"/>
-                            <Label Content="{Binding Neptun.FirstName}" Style="{StaticResource emptyLabel}"/>
-                            <Label Content="{Binding Neptun.LastName}" Style="{StaticResource emptyLabel}"/>
+                            <Label Content="Grade: " Style="{StaticResource boldLabel}"/>
                             <Label Content="{Binding Grade}" Style="{StaticResource emptyLabel}"/>
+                            <Label Content="TeacherId: " Style="{StaticResource boldLabel}"/>
                             <Label Content="{Binding TeacherId}" Style="{StaticResource emptyLabel}"/>
                         </StackPanel>
                     </DataTemplate>
@@ -215,9 +222,11 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
+                            <Label Content="Teacherid: " Style="{StaticResource boldLabel}"/>
                             <Label Content="{Binding TeacherId}" Style="{StaticResource emptyLabel}"/>
                             <Label Content="{Binding FirstName}" Style="{StaticResource emptyLabel}"/>
                             <Label Content="{Binding LastName}" Style="{StaticResource emptyLabel}"/>
+                            <Label Content="Salary: " Style="{StaticResource boldLabel}"/>
                             <Label Content="{Binding Salary}" Style="{StaticResource emptyLabel}"/>
                         </StackPanel>
                     </DataTemplate>
