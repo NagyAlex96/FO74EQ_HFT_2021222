@@ -14,12 +14,12 @@ namespace FO74EQ_HFT_2021222.Endpoint.Controllers
     public class StudentController : Controller
     {
         IStudentLogic logic;
-        IHubContext<SignalRHub> hub;
+        IHubContext<SignalRHub> Hub;
 
         public StudentController(IStudentLogic logic, IHubContext<SignalRHub> hub)
         {
             this.logic = logic;
-            this.hub = hub;
+            this.Hub = hub;
         }
 
         // GET: 
@@ -41,7 +41,7 @@ namespace FO74EQ_HFT_2021222.Endpoint.Controllers
         public void Post([FromBody] Student value)
         {
             logic.Create(value);
-            this.hub.Clients.All.SendAsync("StudentCreated", value);
+            this.Hub.Clients.All.SendAsync("StudentCreated", value);
         }
 
         // PUT:
@@ -49,7 +49,7 @@ namespace FO74EQ_HFT_2021222.Endpoint.Controllers
         public void Put([FromBody] Student value)
         {
             logic.Update(value);
-            this.hub.Clients.All.SendAsync("StudentUpdated", value);
+            this.Hub.Clients.All.SendAsync("StudentUpdated", value);
         }
 
         // DELETE:
@@ -58,7 +58,7 @@ namespace FO74EQ_HFT_2021222.Endpoint.Controllers
         {
             var temp = this.logic.Read(id);
             logic.Delete(id);
-            this.hub.Clients.All.SendAsync("StudentDeleted", temp);
+            this.Hub.Clients.All.SendAsync("StudentDeleted", temp);
         }
     }
 }
