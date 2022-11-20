@@ -38,6 +38,7 @@ namespace FO74EQ_HFT_2021222.Endpoint
             services.AddTransient<IStudentLogic, StudentLogic>();
             services.AddTransient<ITeacherLogic, TeacherLogic>();
 
+            services.AddSignalR();
             services.AddControllers();
             
         }
