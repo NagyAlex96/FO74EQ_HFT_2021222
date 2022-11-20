@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Student</title>
+    <link rel="stylesheet" href="Style.css"/>
+</head>
+
+<body>
+    <h1>Student Catalog</h1>
+
+    <div id="createStudent">
+        <label>NeptunId</label>
+        <input type="number" id="neptunid"/>        
+        
+        <label>Firstname</label>
+        <input type="text" id="firstname"/>
+                
+        <label>Lastname</label>
+        <input type="text" id="lastname"/>
+                
+        <label>DoB</label>
+        <input type="datetime" id="dateofbirth"/>
+                
+        <label>Email</label>
+        <input type="email" id="neptunId"/>
+
+        <button type="button">Add Student</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>NeptunID</th>
+                <th>FirstName</th>
+                <th>Lastname</th>
+                <th>DoB</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody id="resultArea">
+
+        </tbody>
+    </table>
+
+
+    <script src="Script.js">
+
+    </script>
+</body>
+</html>
