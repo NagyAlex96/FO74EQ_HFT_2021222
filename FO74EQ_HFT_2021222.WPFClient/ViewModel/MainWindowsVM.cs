@@ -19,12 +19,11 @@ namespace FO74EQ_HFT_2021222.WPFClient.ViewModel
     {
         public MainWindowsVM()
         {
-            Load();
-        }
+            //enélkül elszáll a program, amennyiben úgy hozunk létre új Studenteket, hogy előtte nem választottunk ki senkit a listából
+            selectedStudent = new Student();
+            selectedGradeBook = new GradeBook();
+            selectedTeacher = new Teacher();
 
-        public ObservableCollection<OptionData> options { get; set; }
-        void Load()
-        {
             //fontos a sorrend, amennyiben változik, úgy változtatni kell a frontenden is 
             options = new ObservableCollection<OptionData>
             {
@@ -49,26 +48,27 @@ namespace FO74EQ_HFT_2021222.WPFClient.ViewModel
 
             if (!IsInDesignMode)
             {
-                Students = new RestCollection<Student>("http://localhost:48036/", "Student", "hub");
+                Students = new RestCollection<Student>("http://localhost:48036/", "Student");
                 CreateStudentCommand = new RelayCommand(CreateStudent);
                 UpdateStudentCommand = new RelayCommand(UpdateStudent);
                 DeleteStudentCommand = new RelayCommand(DeleteStudent);
-                
 
-                GradeBooks = new RestCollection<GradeBook>("http://localhost:48036/", "GradeBook", "hub");
+
+                GradeBooks = new RestCollection<GradeBook>("http://localhost:48036/", "GradeBook");
                 CreateGradeBookCommand = new RelayCommand(CreateGradebook);
                 UpdateGradeBookCommand = new RelayCommand(UpdateGradeBook);
                 DeleteGradeBookCommand = new RelayCommand(DeleteGradeBook);
 
 
-                Teachers = new RestCollection<Teacher>("http://localhost:48036/", "Teacher", "hub");
+                Teachers = new RestCollection<Teacher>("http://localhost:48036/", "Teacher");
                 CreateTeacherCommand = new RelayCommand(CreateTeacher);
                 UpdateTeacherCommand = new RelayCommand(UpdateTeacher);
                 DeleteTeacherCommand = new RelayCommand(DeleteTeacher);
-
-
             }
         }
+
+        public ObservableCollection<OptionData> options { get; set; }
+
 
         //TODO: FONTOS
         public static bool IsInDesignMode
@@ -85,7 +85,7 @@ namespace FO74EQ_HFT_2021222.WPFClient.ViewModel
         public RestCollection<Teacher> Teachers { get; set; }
 
         #region Commands
-        
+
         #region Students
         public IRelayCommand CreateStudentCommand { get; private set; }
 
@@ -231,7 +231,7 @@ namespace FO74EQ_HFT_2021222.WPFClient.ViewModel
             {
                 Teachers.Delete(selectedTeacher.TeacherId);
             }
-        } 
+        }
         #endregion
 
         #endregion
@@ -259,11 +259,11 @@ namespace FO74EQ_HFT_2021222.WPFClient.ViewModel
                         Email = value.Email,
                         NeptunId = value.NeptunId
                     };
+                    OnPropertyChanged();
                 }
-                OnPropertyChanged();
             }
-        }        
-        
+        }
+
         private GradeBook selectedGradeBook;
         public GradeBook SelectedGradeBook
         {
@@ -274,18 +274,18 @@ namespace FO74EQ_HFT_2021222.WPFClient.ViewModel
                 {
                     selectedGradeBook = new GradeBook()
                     {
-                       NeptunId = value.NeptunId,
-                       Grade = value.Grade,
-                       CourseId = value.CourseId,
-                       GradeBookId= value.GradeBookId,
-                       TeacherId= value.TeacherId,
-                       Rating= value.Rating,
+                        NeptunId = value.NeptunId,
+                        Grade = value.Grade,
+                        CourseId = value.CourseId,
+                        GradeBookId = value.GradeBookId,
+                        TeacherId = value.TeacherId,
+                        Rating = value.Rating,
                     };
-                }
                 OnPropertyChanged();
+                }
             }
         }
-        
+
         private Teacher selectedTeacher;
         public Teacher SelectedTeacher
         {
@@ -296,13 +296,13 @@ namespace FO74EQ_HFT_2021222.WPFClient.ViewModel
                 {
                     selectedTeacher = new Teacher()
                     {
-                        FirstName= value.FirstName,
-                        LastName= value.LastName,
-                        Salary= value.Salary,
-                        TeacherId= value.TeacherId,
+                        FirstName = value.FirstName,
+                        LastName = value.LastName,
+                        Salary = value.Salary,
+                        TeacherId = value.TeacherId,
                     };
-                }
                 OnPropertyChanged();
+                }
             }
         }
 
