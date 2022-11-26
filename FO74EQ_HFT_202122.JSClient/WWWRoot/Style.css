@@ -1,20 +1,21 @@
 ﻿table {
     width: 70%;
 }
+
 table {
     border-collapse: collapse;
 }
 
-table, td, th{
+table, td, th {
     border: 1px solid black;
 }
 
-th, td{
+th, td {
     padding: 5px;
 }
 
-th{
-    background-color:lightblue;
+th {
+    background-color: lightblue;
 }
 
 #createStudent {
@@ -23,12 +24,27 @@ th{
     margin-bottom: 20px;
 }
 
-#createStudent labelm button, input{
-    margin: 10px;
-    padding: 7px
+    #createStudent label, button, input {
+        margin: 10px;
+        padding: 7px
+    }
+
+    #createStudent label {
+        font-weight: bolder;
+    }
+
+/*TODO: nem rejti el ténylegesen. Viszont, ha flexről átírom none-ra akkor igen, frissítés után nem marad rejtett*/
+#updateStudent {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
 }
 
-#createStudent label
-{
-    font-weight: bolder;
-}
+    #updateStudent label, button, input {
+        margin: 10px;
+        padding: 7px
+    }
+
+    #updateStudent label {
+        font-weight: bolder;
+    }

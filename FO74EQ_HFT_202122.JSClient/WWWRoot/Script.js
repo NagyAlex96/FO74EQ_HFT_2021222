@@ -1,8 +1,43 @@
 ﻿let student = [];
+const connection = null;
+let studentUpdate = -1;
 
 getdata();
+//setupSignalR(); //TODO hiba. Frissítésre működik rendesen
 
+function setupSignalR() {
+    connection = new signalR.HubConnectionBuilder()
+        .withUrl("http://localhost:48036/hub")
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
 
+    connection.on("StudentCreated", (user, message) => {
+        getdata();
+    });
+
+    connection.on("StudentDeleted", (user, message) => {
+        getdata();
+    });
+
+    connection.on("StudentUpdated", (user, message) => {
+        getdata();
+    });
+
+    connection.onclose(async () => {
+        await start();
+    });
+    start();
+}
+
+async function start() {
+    try {
+        await connection.start();
+        console.log("SignalR Connected.");
+    } catch (err) {
+        console.log(err);
+        setTimeout(start, 5000);
+    }
+};
 
 async function getdata() {
     //launcSettings.json fájl urljével nem műkődik.
@@ -15,8 +50,7 @@ async function getdata() {
         });
 }
 
-function Display()
-{
+function Display() {
     document.getElementById('resultArea').innerHTML = "";
     student.forEach(t => {
         document.getElementById('resultArea').innerHTML +=
@@ -25,14 +59,14 @@ function Display()
             "<td>" + t.lastName + "</td>" +
             "<td>" + t.dateOfBirth + "</td>" +
             "<td>" + t.email + "</td>" +
-            "<td>" + `<button type="button" onclick="remove(${t.neptunId})">Delete</button>`
+            "<td>" +
+            `<button type="button" onclick="remove(${t.neptunId})">Delete</button>` +
+            `<button type="button" onclick="showupdate(${t.neptunId})">Update</button>`
             + "</td></tr>";
     });
 }
 
-//TODO
-function create()
-{
+function create() {
     let id = document.getElementById('neptunid').value;
     let fn = document.getElementById('firstname').value;
     let ln = document.getElementById('lastname').value;
@@ -60,6 +94,34 @@ function create()
         .catch((error) => { console.error('Error:', error); });
 }
 
+function update() {
+
+    document.getElementById('updateStudent').style.display = 'none';
+    let fn = document.getElementById('updatefirstname').value;
+    let ln = document.getElementById('updatelastname').value;
+    let date = document.getElementById('updatedateofbirth').value;
+    let email = document.getElementById('updateemail').value;
+
+    //TODO: error
+    fetch('http://localhost:48036/Student/', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify(
+            {
+                neptunId: studentUpdate,
+                firstName: fn,
+                lastName: ln,
+                dateOfBirth: date,
+                email: email
+            })
+    })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getdata();
+        })
+        .catch((error) => { console.error('Error:', error); });
+}
 
 function remove(id) {
     fetch('http://localhost:48036/Student/' + id, {
@@ -73,4 +135,17 @@ function remove(id) {
             getdata();
         })
         .catch((error) => { console.error('Error:', error); });
+}
+
+function showupdate(id) {
+    let x = student.find(t => t['neptunId'] == id);
+    studentUpdate = id;
+
+    document.getElementById('updateneptunid').value = x['neptunId'];
+    document.getElementById('updatefirstname').value = x['firstName'];
+    document.getElementById('updatelastname').value = x['lastName'];
+    document.getElementById('updatedateofbirth').value = x['dateOfBirth']; //TODO: nem jelenik meg (rossz formátum)
+    document.getElementById('updateemail').value = x['email'];
+
+    document.getElementById('updateStudent').style.display = 'flex';
 }
