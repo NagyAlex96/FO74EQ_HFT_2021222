@@ -49,13 +49,13 @@ namespace FO74EQ_HFT_2021222.WPFClient.ViewModel
             if (!IsInDesignMode)
             {
                 //TODO "Hub"
-                Students = new RestCollection<Student>("http://localhost:48036/", "Student");
+                Students = new RestCollection<Student>("http://localhost:48036/", "Student", "hub");
                 CreateStudentCommand = new RelayCommand(CreateStudent);
                 UpdateStudentCommand = new RelayCommand(UpdateStudent);
                 DeleteStudentCommand = new RelayCommand(DeleteStudent);
 
 
-                GradeBooks = new RestCollection<GradeBook>("http://localhost:48036/", "GradeBook");
+                GradeBooks = new RestCollection<GradeBook>("http://localhost:48036/", "GradeBook", "hub");
                 CreateGradeBookCommand = new RelayCommand(CreateGradebook);
                 UpdateGradeBookCommand = new RelayCommand(UpdateGradeBook);
                 DeleteGradeBookCommand = new RelayCommand(DeleteGradeBook);

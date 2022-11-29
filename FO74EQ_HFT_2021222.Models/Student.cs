@@ -49,6 +49,15 @@ namespace FO74EQ_HFT_2021222.Models
         [NotMapped]
         [JsonIgnore]
         public virtual ICollection<GradeBook> GradeBooks { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Student s)
+            {
+                return s.NeptunId == this.NeptunId;
+            }
+            return false;
+        }
     }
 
 }

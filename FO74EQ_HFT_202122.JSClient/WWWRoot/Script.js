@@ -1,21 +1,24 @@
 ﻿let student = [];
-const connection = null;
+let connection = null;
 let studentUpdate = -1;
 
 getdata();
-//setupSignalR(); //TODO hiba. Frissítésre működik rendesen
+setupSignalR(); //TODO hiba. Frissítésre működik rendesen
 
 function setupSignalR() {
+    console.log("Signalr setup started")
     connection = new signalR.HubConnectionBuilder()
         .withUrl("http://localhost:48036/hub")
         .configureLogging(signalR.LogLevel.Information)
         .build();
 
     connection.on("StudentCreated", (user, message) => {
+        console.log("Create ping received")
         getdata();
     });
 
     connection.on("StudentDeleted", (user, message) => {
+        console.log("Delete ping received")
         getdata();
     });
 
@@ -27,6 +30,7 @@ function setupSignalR() {
         await start();
     });
     start();
+    console.log("Signalr setup finished")
 }
 
 async function start() {
@@ -41,6 +45,7 @@ async function start() {
 
 async function getdata() {
     //launcSettings.json fájl urljével nem műkődik.
+    console.log("getdata running")
     await fetch('http://localhost:48036/Student')
         .then(x => x.json())
         .then(y => {

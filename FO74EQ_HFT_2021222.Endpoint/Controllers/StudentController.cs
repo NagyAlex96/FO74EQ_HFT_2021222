@@ -42,6 +42,7 @@ namespace FO74EQ_HFT_2021222.Endpoint.Controllers
         {
             logic.Create(value);
             this.Hub.Clients.All.SendAsync("StudentCreated", value);
+            ;
         }
 
         // PUT:

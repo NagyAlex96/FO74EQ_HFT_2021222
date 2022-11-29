@@ -38,7 +38,6 @@ namespace FO74EQ_HFT_2021222.Endpoint
             services.AddTransient<IStudentLogic, StudentLogic>();
             services.AddTransient<ITeacherLogic, TeacherLogic>();
 
-            services.AddSignalR();
             services.AddControllers();
             
         }
@@ -68,7 +67,7 @@ namespace FO74EQ_HFT_2021222.Endpoint
             .AllowCredentials()
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .WithOrigins("http://localhost:15338"));
+            .WithOrigins("http://localhost:5000"));
 
             app.UseRouting();
 

@@ -296,14 +296,20 @@ namespace FO74EQ_HFT_2021222.WPFClient
                 {
                     items.Add(item);
                     CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+                    ;
                 });
                 this.notify.AddHandler<T>(type.Name + "Deleted", (T item) =>
                 {
                     var element = items.FirstOrDefault(t => t.Equals(item));
+                    ;
                     if (element != null)
                     {
                         items.Remove(item);
-                        CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+
+
+                        Application.Current.Dispatcher.Invoke(
+     new Action(() => CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset))));
+
                     }
                     else
                     {
