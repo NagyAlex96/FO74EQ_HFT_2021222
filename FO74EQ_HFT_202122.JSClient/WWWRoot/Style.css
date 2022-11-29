@@ -35,7 +35,7 @@ th {
 
 /*TODO: nem rejti el ténylegesen. Viszont, ha flexről átírom none-ra akkor igen, frissítés után nem marad rejtett*/
 #updateStudent {
-    display: flex;
+    display: none;
     flex-direction: column;
     margin-bottom: 20px;
 }

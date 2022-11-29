@@ -3,7 +3,7 @@ let connection = null;
 let studentUpdate = -1;
 
 getdata();
-setupSignalR(); //TODO hiba. Frissítésre működik rendesen
+setupSignalR();
 
 function setupSignalR() {
     console.log("Signalr setup started")
@@ -104,10 +104,8 @@ function update() {
     document.getElementById('updateStudent').style.display = 'none';
     let fn = document.getElementById('updatefirstname').value;
     let ln = document.getElementById('updatelastname').value;
-    let date = document.getElementById('updatedateofbirth').value;
     let email = document.getElementById('updateemail').value;
 
-    //TODO: error
     fetch('http://localhost:48036/Student/', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', },
@@ -116,7 +114,6 @@ function update() {
                 neptunId: studentUpdate,
                 firstName: fn,
                 lastName: ln,
-                dateOfBirth: date,
                 email: email
             })
     })
@@ -149,7 +146,6 @@ function showupdate(id) {
     document.getElementById('updateneptunid').value = x['neptunId'];
     document.getElementById('updatefirstname').value = x['firstName'];
     document.getElementById('updatelastname').value = x['lastName'];
-    document.getElementById('updatedateofbirth').value = x['dateOfBirth']; //TODO: nem jelenik meg (rossz formátum)
     document.getElementById('updateemail').value = x['email'];
 
     document.getElementById('updateStudent').style.display = 'flex';

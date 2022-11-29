@@ -48,7 +48,6 @@ namespace FO74EQ_HFT_2021222.WPFClient.ViewModel
 
             if (!IsInDesignMode)
             {
-                //TODO "Hub"
                 Students = new RestCollection<Student>("http://localhost:48036/", "Student", "hub");
                 CreateStudentCommand = new RelayCommand(CreateStudent);
                 UpdateStudentCommand = new RelayCommand(UpdateStudent);
@@ -61,7 +60,7 @@ namespace FO74EQ_HFT_2021222.WPFClient.ViewModel
                 DeleteGradeBookCommand = new RelayCommand(DeleteGradeBook);
 
 
-                Teachers = new RestCollection<Teacher>("http://localhost:48036/", "Teacher");
+                Teachers = new RestCollection<Teacher>("http://localhost:48036/", "Teacher", "hub");
                 CreateTeacherCommand = new RelayCommand(CreateTeacher);
                 UpdateTeacherCommand = new RelayCommand(UpdateTeacher);
                 DeleteTeacherCommand = new RelayCommand(DeleteTeacher);
